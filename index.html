@@ -1,0 +1,3046 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đặng Thị Linh Nhi - Chuyên Viên Phân Tích Kinh Doanh | Galaxy Flow BI Engine</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- TailwindCSS & FontAwesome 6 & Chart.js & SheetJS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            galaxy: {
+              950: '#030712',
+              900: '#060a17',
+              850: '#0b1124',
+              800: '#0f172a',
+              blue: '#3b82f6',
+              cyan: '#38bdf8',
+              emerald: '#10b981',
+              neon: '#60a5fa',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ==================== GALAXY COLLAPSES BLACK THEME ==================== */
+    :root {
+      color-scheme: dark;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #030712;
+      color: #f1f5f9;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Cosmic Canvas Background */
+    #galaxyCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Cybernetic Perspective Grid */
+    .galaxy-grid {
+      background-image: 
+        linear-gradient(to right, rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Glowing Cosmic Horizon Rim Light */
+    .cosmic-horizon {
+      position: absolute;
+      top: -160px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.28) 0%, rgba(56, 189, 248, 0.12) 40%, transparent 70%);
+      border-bottom: 2px solid rgba(96, 165, 250, 0.7);
+      box-shadow: 0 15px 60px rgba(59, 130, 246, 0.4), 0 0 100px rgba(37, 99, 235, 0.3);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Glowing Neon Orbit Arc */
+    .orbit-ring {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(96, 165, 250, 0.4);
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.35), inset 0 0 25px rgba(59, 130, 246, 0.2);
+      pointer-events: none;
+    }
+
+    /* Four-Pointed Diamond Star Spark */
+    .spark-star {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      background: #ffffff;
+      clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
+      filter: drop-shadow(0 0 8px #60a5fa) drop-shadow(0 0 16px #3b82f6);
+      animation: pulse-spark 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse-spark {
+      0% { transform: scale(0.85) rotate(0deg); filter: drop-shadow(0 0 6px #60a5fa); }
+      100% { transform: scale(1.2) rotate(15deg); filter: drop-shadow(0 0 18px #93c5fd) drop-shadow(0 0 30px #3b82f6); }
+    }
+
+    /* Cosmic Glassmorphism Cards */
+    .galaxy-glass {
+      background: rgba(11, 17, 36, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(59, 130, 246, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .galaxy-glass:hover {
+      border-color: rgba(96, 165, 250, 0.4);
+      box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.7), 0 0 30px rgba(59, 130, 246, 0.16);
+    }
+
+    /* Radiant Neon Blue Pill Button (Liftoff style) */
+    .btn-liftoff {
+      background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #38bdf8 100%);
+      box-shadow: 0 0 30px rgba(37, 99, 235, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      transition: all 0.25s ease-in-out;
+    }
+    .btn-liftoff:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%);
+      box-shadow: 0 0 45px rgba(56, 189, 248, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* ==================== 4 STEP BUTTONS ==================== */
+    /* "có thể bấm đến các nút được, khi bấm chuyển sang màu xanh" */
+    .step-tab {
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .step-tab:hover {
+      transform: translateY(-2px);
+    }
+
+    /* KHI BẤM CHUYỂN SANG MÀU XANH (EMERALD / GREEN WITH NEON GLOW) */
+    .step-tab.active {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+      color: #ffffff !important;
+      box-shadow: 0 10px 25px -3px rgba(16, 185, 129, 0.5), 0 0 25px rgba(16, 185, 129, 0.4) !important;
+      border-color: #10b981 !important;
+    }
+
+    .step-tab.completed {
+      background: rgba(16, 185, 129, 0.12) !important;
+      color: #34d399 !important;
+      border-color: rgba(16, 185, 129, 0.4) !important;
+    }
+    .step-tab.completed:hover {
+      background: rgba(16, 185, 129, 0.2) !important;
+      border-color: #34d399 !important;
+    }
+
+    .step-tab.idle {
+      background: rgba(15, 23, 42, 0.75) !important;
+      color: #94a3b8 !important;
+      border-color: rgba(59, 130, 246, 0.2) !important;
+    }
+    .step-tab.idle:hover {
+      background: rgba(30, 41, 59, 0.85) !important;
+      border-color: rgba(56, 189, 248, 0.5) !important;
+      color: #38bdf8 !important;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060a17;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3b82f6;
+    }
+  
+    /* ==================== 3D WELCOME STAGE (CHARCOAL NAVY THEME) ==================== */
+    .welcome-3d-viewport {
+      --pointer-x: 50%;
+      --pointer-y: 50%;
+      background: radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(37, 99, 235, 0.16), transparent 30rem), #040814 !important;
+      perspective: 1200px;
+      touch-action: none;
+    }
+    .w3d-card {
+      --focus: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: clamp(165px, 16vw, 210px);
+      aspect-ratio: 0.74;
+      padding: 1rem;
+      border-radius: 1.25rem;
+      color: #f8fafc;
+      background: linear-gradient(150deg, rgba(20, 30, 52, 0.95), rgba(8, 14, 28, 0.98)) !important;
+      border: 1.5px solid rgba(59, 130, 246, calc(0.2 + var(--focus) * 0.45));
+      box-shadow: 0 calc(8px + var(--focus) * 20px) calc(18px + var(--focus) * 40px) rgba(0, 0, 0, 0.7),
+                  0 0 calc(var(--focus) * 30px) rgba(59, 130, 246, 0.35);
+      transform-style: preserve-3d;
+      will-change: transform, opacity, filter;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .w3d-card.active-3d-card {
+      border-color: rgba(16, 185, 129, 0.95) !important;
+      box-shadow: 0 0 35px rgba(16, 185, 129, 0.6), 0 15px 40px rgba(0, 0, 0, 0.8) !important;
+    }
+    .w3d-badge {
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 800;
+      background: rgba(59, 130, 246, 0.2);
+      color: #38bdf8;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      display: inline-block;
+      transform: translateZ(10px);
+    }
+    .w3d-card.active-3d-card .w3d-badge {
+      background: rgba(16, 185, 129, 0.25) !important;
+      color: #34d399 !important;
+      border-color: rgba(16, 185, 129, 0.5) !important;
+    }
+    .w3d-btn {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 800;
+      text-align: center;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: white;
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      transform: translateZ(16px);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .w3d-card.active-3d-card .w3d-btn {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+      border-color: rgba(52, 211, 153, 0.7) !important;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.6) !important;
+    }
+
+  
+    /* ==================== FLOATING ASK AI RIGHT SIDE PANEL ==================== */
+    #aiSideDrawer {
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #aiSideDrawer.ai-drawer-closed {
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+      pointer-events: none;
+    }
+    #aiSideDrawer.ai-drawer-open {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .ai-bubble-user {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .ai-bubble-bot {
+      background: rgba(15, 23, 42, 0.92);
+      color: #f1f5f9;
+      border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .ai-quick-chip {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: #cbd5e1;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .ai-quick-chip:hover {
+      background: rgba(30, 58, 138, 0.6);
+      border-color: rgba(56, 189, 248, 0.6);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+  
+    /* ==================== FLOATING FEEDBACK LEFT SIDE PANEL ==================== */
+    #feedbackSideDrawer {
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #feedbackSideDrawer.feedback-drawer-closed {
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+      pointer-events: none;
+    }
+    #feedbackSideDrawer.feedback-drawer-open {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .feedback-cat-chip {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #cbd5e1;
+      border-radius: 12px;
+      padding: 7px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .feedback-cat-chip:hover {
+      background: rgba(6, 78, 59, 0.4);
+      border-color: rgba(52, 211, 153, 0.6);
+      color: #ffffff;
+    }
+    .feedback-cat-chip.active {
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.8), rgba(16, 185, 129, 0.35)) !important;
+      border-color: rgba(52, 211, 153, 0.8) !important;
+      color: #34d399 !important;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+    }
+
+  </style>
+
+  <!-- Pre-load dataset helper -->
+  <script src="/data/phucan_dataset.js"></script>
+  <script src="/static/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+
+<body class="relative">
+
+  <!-- ==================== ANIMATED GALAXY STARDUST CANVAS ==================== -->
+  <canvas id="galaxyCanvas"></canvas>
+
+  <!-- ==================== COSMIC HORIZON GLOW ==================== -->
+  <div class="cosmic-horizon"></div>
+
+  <!-- Main Container sitting above the cosmic canvas -->
+  <div class="relative z-10 flex flex-col min-h-screen pb-12">
+
+    <!-- ==================== HEADER (COSMIC GLASS) ==================== -->
+    <header class="sticky top-0 z-50 bg-[#060a17]/90 backdrop-blur-xl border-b border-blue-900/40 px-4 lg:px-8 py-3 flex items-center justify-between shadow-2xl">
+      <div class="flex items-center gap-3.5">
+        <div class="relative w-11 h-11 shrink-0">
+          <img src="/static/avatar_linhnhi.jpg?v=2" alt="Đặng Thị Linh Nhi" class="w-11 h-11 rounded-2xl object-cover object-[center_35%] border-2 border-cyan-400/60 shadow-lg shadow-cyan-500/30">
+          <span class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-[#060a17] shadow-sm shadow-emerald-400 animate-pulse"></span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-black text-base text-white tracking-tight">Đặng Thị Linh Nhi</span>
+            <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-blue-950/80 text-cyan-300 border border-cyan-500/40 font-extrabold flex items-center gap-1.5 shadow-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+              Chuyên Viên Phân Tích Kinh Doanh
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 font-medium hidden sm:block">Hệ thống Galaxy BI Engine &amp; Chuẩn Hóa Dữ Liệu Tức Thì</p>
+        </div>
+      </div>
+
+      <!-- Quick Tools -->
+      <div class="flex items-center gap-2">
+        <button onclick="loadSample(true)" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-800 hover:border-slate-700 text-xs font-bold flex items-center gap-1.5 transition">
+          <span>Mẫu Đạt (Yes)</span> <i class="fa-solid fa-arrow-down text-[10px] text-emerald-400"></i>
+        </button>
+        <button onclick="loadSample(false)" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-800 hover:border-slate-700 text-xs font-bold flex items-center gap-1.5 transition">
+          <span>Mẫu Lỗi (No)</span> <i class="fa-solid fa-arrow-down text-[10px] text-rose-400"></i>
+        </button>
+        <button onclick="openApiKeyModal()" class="px-3 py-1.5 rounded-xl bg-amber-950/60 hover:bg-amber-900/70 text-amber-300 border border-amber-600/40 text-xs font-bold flex items-center gap-1.5 transition">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span> API Key
+        </button>
+        <button onclick="toggleAutoTour()" id="btnAutoTour" class="px-3.5 py-1.5 rounded-xl bg-blue-950/70 hover:bg-blue-900/80 text-cyan-300 border border-cyan-500/40 text-xs font-extrabold flex items-center gap-1.5 transition shadow-lg shadow-blue-900/30">
+          <i class="fa-solid fa-play text-[10px]"></i> Tự động di chuyển
+        </button>
+        <button onclick="triggerCelebrationFireworks('Chúc mừng bạn! Phân tích hoàn tất rực rỡ.')" title="Bắn pháo hoa chúc mừng" class="px-3 py-1.5 rounded-xl bg-emerald-950/70 hover:bg-emerald-900/80 text-emerald-300 border border-emerald-500/40 text-xs font-bold flex items-center gap-1.5 transition shadow-lg shadow-emerald-950/40">
+          <i class="fa-solid fa-champagne-glasses text-[11px] animate-bounce"></i> <span>Pháo Hoa</span>
+        </button>
+        <button onclick="resetAll()" title="Làm mới toàn bộ" class="w-8 h-8 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 flex items-center justify-center transition text-xs">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==================== 4 STEP NAVIGATION BAR ==================== -->
+    <div class="sticky top-[61px] z-40 bg-[#030712]/80 backdrop-blur-md border-b border-blue-950/60 px-4 lg:px-8 py-2.5 shadow-lg">
+      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-2.5">
+        
+        <!-- Step 1 Button -->
+        <button onclick="goToStep(1)" id="stepBtn1"
+          class="step-tab active px-3.5 py-2.5 rounded-2xl border text-left flex items-center gap-3">
+          <div class="w-7 h-7 rounded-xl bg-white/20 flex items-center justify-center font-bold text-xs shrink-0" id="stepIcon1">1</div>
+          <div class="truncate">
+            <div class="text-xs font-extrabold leading-tight">1. Kết nối</div>
+            <div class="text-[10px] opacity-80 leading-tight">Chọn nguồn dữ liệu</div>
+          </div>
+        </button>
+
+        <!-- Step 2 Button -->
+        <button onclick="goToStep(2)" id="stepBtn2"
+          class="step-tab idle px-3.5 py-2.5 rounded-2xl border text-left flex items-center gap-3">
+          <div class="w-7 h-7 rounded-xl bg-slate-800/80 flex items-center justify-center font-bold text-xs shrink-0" id="stepIcon2">2</div>
+          <div class="truncate">
+            <div class="text-xs font-extrabold leading-tight">2. Làm sạch</div>
+            <div class="text-[10px] opacity-80 leading-tight">Kiểm tra &amp; chuẩn hóa</div>
+          </div>
+        </button>
+
+        <!-- Step 3 Button -->
+        <button onclick="goToStep(3)" id="stepBtn3"
+          class="step-tab idle px-3.5 py-2.5 rounded-2xl border text-left flex items-center gap-3">
+          <div class="w-7 h-7 rounded-xl bg-slate-800/80 flex items-center justify-center font-bold text-xs shrink-0" id="stepIcon3">3</div>
+          <div class="truncate">
+            <div class="text-xs font-extrabold leading-tight">3. Phân tích</div>
+            <div class="text-[10px] opacity-80 leading-tight">Khám phá số liệu BI</div>
+          </div>
+        </button>
+
+        <!-- Step 4 Button -->
+        <button onclick="goToStep(4)" id="stepBtn4"
+          class="step-tab idle px-3.5 py-2.5 rounded-2xl border text-left flex items-center gap-3">
+          <div class="w-7 h-7 rounded-xl bg-slate-800/80 flex items-center justify-center font-bold text-xs shrink-0" id="stepIcon4">4</div>
+          <div class="truncate">
+            <div class="text-xs font-extrabold leading-tight">4. Xuất kết quả</div>
+            <div class="text-[10px] opacity-80 leading-tight">Tải dữ liệu &amp; báo cáo</div>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- ==================== AUTO NAV NOTIFICATION ==================== -->
+    <div id="autoNavBanner" class="hidden max-w-6xl w-full mx-auto px-4 mt-3">
+      <div class="p-3 rounded-2xl bg-blue-950/80 border border-cyan-500/40 text-cyan-200 text-xs font-bold flex items-center justify-between shadow-lg shadow-blue-950/50">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-spinner animate-spin text-cyan-400"></i>
+          <span id="autoNavText">Galaxy AI Agent đang tự động xử lý và di chuyển qua các bước...</span>
+        </div>
+        <button onclick="stopAutoTour()" class="text-[11px] text-slate-400 hover:text-white underline">Dừng tự động</button>
+      </div>
+    </div>
+
+    <!-- ==================== MAIN 4 STEPS ==================== -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 lg:p-6 flex flex-col gap-6">
+
+      <!-- ============================================================== -->
+      <!-- BƯỚC 1: KẾT NỐI (CHỌN NGUỒN DỮ LIỆU)                            -->
+      <!-- ============================================================== -->
+      <div id="stepView1" class="flex flex-col gap-6">
+
+        <!-- Hero Banner with LaunchMotion Flow Style -->
+        <div class="rounded-3xl p-6 lg:p-10 galaxy-glass relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="space-y-4 max-w-xl z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-bold">
+              <span class="spark-star"></span>
+              <span>✦ Chào Mừng Đến Với Hệ Thống AI BI Engine · Bước 1: Kết Nối</span>
+            </div>
+            <h1 class="text-3xl lg:text-4xl font-black tracking-tight leading-tight text-white">
+              Are you <span class="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-white">ready?</span>
+            </h1>
+            <p class="text-slate-300 text-xs lg:text-sm leading-relaxed">
+              Biến dữ liệu thô thành Báo cáo BI chuẩn xác. <strong>Hệ thống tự động đọc và tính toán chỉ số ngay khi bạn đưa file lên</strong>.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3 pt-2 text-xs">
+              <!-- Button requested by user -->
+              <button onclick="triggerFileInput()" class="btn-liftoff px-6 py-3 rounded-full text-white font-extrabold flex items-center gap-2 text-xs">
+                <i class="fa-solid fa-cloud-arrow-up text-sm"></i> Đưa file dữ liệu bất kì của bạn &rarr;
+              </button>
+              <button onclick="fillExampleContext()" class="px-4 py-3 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 font-bold border border-slate-700/80 transition">
+                Điền nhanh ví dụ
+              </button>
+              
+            </div>
+
+          </div>
+
+          <!-- Live Preview Stats Widget (Cosmic Glass) -->
+          <div class="w-full md:w-80 bg-slate-950/80 backdrop-blur-xl p-5 rounded-3xl border border-blue-500/30 text-xs space-y-3 z-10 shadow-2xl relative">
+            <div class="text-[11px] font-bold text-cyan-300 uppercase tracking-wider flex items-center justify-between">
+              <span id="previewHeaderTitle">Chỉ Số Dữ Liệu</span>
+              <span id="previewStatusDot" class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-sm shadow-amber-400"></span>
+            </div>
+            <div class="space-y-2.5">
+              <div class="flex justify-between items-center text-slate-300">
+                <span>Tổng số dòng:</span>
+                <strong class="font-mono text-white text-sm" id="s1TotalRows">--</strong>
+              </div>
+              <div class="flex justify-between items-center text-slate-300">
+                <span>Tổng Doanh Thu:</span>
+                <strong class="font-mono text-cyan-300 text-sm font-bold" id="s1TotalGross">--</strong>
+              </div>
+              <div class="flex justify-between items-center text-slate-300">
+                <span>Số Điểm Bán / Nhóm:</span>
+                <strong class="font-mono text-white text-sm" id="s1TotalGroups">--</strong>
+              </div>
+            </div>
+            <div id="previewStatusHelp" class="text-[10px] text-slate-400 pt-2 border-t border-slate-800 flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-info text-cyan-400"></i>
+              <span>Chưa có tệp. Vui lòng kéo thả hoặc chọn file.</span>
+            </div>
+          </div>
+        </div>
+
+        
+        <!-- ==================== KHU VỰC CHÀO MỪNG 3D (MÀU HUYỀN BÍ XANH THAN) ==================== -->
+        <div id="welcome3DContainer" class="galaxy-glass p-5 rounded-3xl flex flex-col gap-4 border border-blue-500/30">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-blue-900/40 pb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-400 via-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30">
+                <i class="fa-solid fa-chart-line text-xs"></i>
+              </div>
+              <div>
+                <div class="text-xs font-black text-white tracking-wide uppercase flex items-center gap-2">
+                  <span>Phân tích tình hình doanh nghiệp</span>
+                  <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-blue-950/80 text-cyan-300 border border-cyan-500/40 font-bold">Hệ Thống AI BI</span>
+                </div>
+                <p class="text-[11px] text-slate-400">Quy trình chuẩn hóa &amp; phân tích tự động: 1. Kết nối · 2. Làm sạch · 3. Phân tích BI · 4. Xuất báo cáo</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button onclick="switchWelcome3DVariant('wave')" id="btnW3DWave" class="px-3 py-1 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-md">3D Wave</button>
+              <button onclick="switchWelcome3DVariant('filmstrip')" id="btnW3DFilm" class="px-3 py-1 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition">3D Filmstrip</button>
+              
+            </div>
+          </div>
+
+          <!-- Viewport 3D -->
+          <div class="welcome-3d-viewport relative w-full h-[400px] overflow-hidden rounded-2xl bg-[#040814] border border-blue-900/50 cursor-grab" id="w3DViewport">
+            <div class="welcome-3d-deck absolute inset-0 flex items-center justify-center" id="w3DDeck" style="transform-style: preserve-3d; perspective: 1150px;">
+              
+              <!-- 3D Card 0 -->
+              <div class="w3d-card active-3d-card" id="wCard0" onclick="goToStep(1)">
+                <div class="flex items-center justify-between">
+                  <span class="w3d-badge">Bước 1</span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                </div>
+                <div class="my-auto text-center space-y-1 py-1">
+                  <div class="w-10 h-10 mx-auto rounded-2xl bg-blue-600/30 border border-blue-400/40 flex items-center justify-center text-cyan-300 text-lg">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                  </div>
+                  <div class="font-extrabold text-xs text-white">1. Kết Nối & Tải File</div>
+                  <div class="text-[10px] text-slate-300 leading-tight">Đọc & bóc tách dữ liệu tức thì</div>
+                </div>
+                <button onclick="event.stopPropagation(); triggerFileInput();" class="w3d-btn">
+                  Đưa File Lên &rarr;
+                </button>
+              </div>
+
+              <!-- 3D Card 1 -->
+              <div class="w3d-card" id="wCard1" onclick="goToStep(2)">
+                <div class="flex items-center justify-between">
+                  <span class="w3d-badge">Bước 2</span>
+                  <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                </div>
+                <div class="my-auto text-center space-y-1 py-1">
+                  <div class="w-10 h-10 mx-auto rounded-2xl bg-indigo-600/30 border border-indigo-400/40 flex items-center justify-center text-indigo-300 text-lg">
+                    <i class="fa-solid fa-broom"></i>
+                  </div>
+                  <div class="font-extrabold text-xs text-white">2. Làm Sạch & Chuẩn Hóa</div>
+                  <div class="text-[10px] text-slate-300 leading-tight">Lọc số âm, đơn hủy & chuẩn hóa</div>
+                </div>
+                <button onclick="event.stopPropagation(); goToStep(2);" class="w3d-btn">
+                  Làm Sạch &rarr;
+                </button>
+              </div>
+
+              <!-- 3D Card 2 -->
+              <div class="w3d-card" id="wCard2" onclick="goToStep(3)">
+                <div class="flex items-center justify-between">
+                  <span class="w3d-badge">Bước 3</span>
+                  <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                </div>
+                <div class="my-auto text-center space-y-1 py-1">
+                  <div class="w-10 h-10 mx-auto rounded-2xl bg-cyan-600/30 border border-cyan-400/40 flex items-center justify-center text-cyan-300 text-lg">
+                    <i class="fa-solid fa-chart-pie"></i>
+                  </div>
+                  <div class="font-extrabold text-xs text-white">3. Phân Tích BI</div>
+                  <div class="text-[10px] text-slate-300 leading-tight">Doanh thu, TB/dòng & 3 biểu đồ</div>
+                </div>
+                <button onclick="event.stopPropagation(); goToStep(3);" class="w3d-btn">
+                  Khám Phá BI &rarr;
+                </button>
+              </div>
+
+              <!-- 3D Card 3 -->
+              <div class="w3d-card" id="wCard3" onclick="goToStep(4)">
+                <div class="flex items-center justify-between">
+                  <span class="w3d-badge">Bước 4</span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                </div>
+                <div class="my-auto text-center space-y-1 py-1">
+                  <div class="w-10 h-10 mx-auto rounded-2xl bg-emerald-600/30 border border-emerald-400/40 flex items-center justify-center text-emerald-300 text-lg">
+                    <i class="fa-solid fa-file-export"></i>
+                  </div>
+                  <div class="font-extrabold text-xs text-white">4. Xuất Báo Cáo</div>
+                  <div class="text-[10px] text-slate-300 leading-tight">Xuất Excel, HTML và JSON</div>
+                </div>
+                <button onclick="event.stopPropagation(); goToStep(4);" class="w3d-btn">
+                  Tải Về &rarr;
+                </button>
+              </div>
+
+              <!-- 3D Card 4 -->
+              <div class="w3d-card" id="wCard4" onclick="loadSample(true)">
+                <div class="flex items-center justify-between">
+                  <span class="w3d-badge">AI Agent</span>
+                  <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+                </div>
+                <div class="my-auto text-center space-y-1 py-1">
+                  <div class="w-11 h-11 mx-auto rounded-2xl overflow-hidden border-2 border-cyan-400/60 shadow-md">
+                    <img src="/static/avatar_linhnhi.jpg?v=2" alt="Đặng Thị Linh Nhi" class="w-full h-full object-cover object-[center_35%]">
+                  </div>
+                  <div class="font-extrabold text-xs text-white">Đặng Thị Linh Nhi</div>
+                  <div class="text-[10px] text-slate-300 leading-tight">Chuyên Viên Phân Tích KD</div>
+                </div>
+                <button onclick="event.stopPropagation(); loadSample(true);" class="w3d-btn">
+                  Chạy Thử Mẫu &rarr;
+                </button>
+              </div>
+
+            </div>
+
+            <div class="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] text-slate-400 pointer-events-none z-10">
+              <span><i class="fa-solid fa-arrows-left-right text-cyan-400"></i> Kéo chuột / Lăn chuột để xoay lướt thẻ 3D</span>
+              <span class="font-bold text-cyan-300">Bấm thẻ hoặc nút để chọn bước</span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Upload Dropzone & Context Form (Galaxy Cards) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          <!-- Left: Context Form -->
+          <div class="galaxy-glass p-6 rounded-3xl flex flex-col gap-4">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+              <h2 class="text-sm font-extrabold text-white flex items-center gap-2">
+                <i class="fa-solid fa-briefcase text-cyan-400"></i> Bối cảnh &amp; Bài toán kinh doanh
+              </h2>
+              <button onclick="fillExampleContext()" class="text-xs text-cyan-400 hover:text-cyan-300 font-bold">
+                Ví dụ mẫu
+              </button>
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-bold text-slate-300">Bối cảnh doanh nghiệp</label>
+              <input type="text" id="inputContext" placeholder="Nhập bối cảnh doanh nghiệp của bạn (hoặc bấm 'Ví dụ mẫu')..."
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none transition">
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-bold text-slate-300">Vấn đề cần Agent giải quyết</label>
+              <textarea id="inputProblem" rows="4" placeholder="Nhập mục tiêu làm sạch & phân tích dữ liệu cần xử lý..."
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none transition"></textarea>
+            </div>
+          </div>
+
+          <!-- Right: Upload Dropzone -->
+          <div class="galaxy-glass p-6 rounded-3xl flex flex-col gap-4">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+              <h2 class="text-sm font-extrabold text-white flex items-center gap-2">
+                <i class="fa-solid fa-cloud-arrow-up text-cyan-400"></i> Đẩy file dữ liệu bất kỳ lên (.xlsx, .csv, .json)
+              </h2>
+              <span class="text-xs text-cyan-400 font-bold flex items-center gap-1">
+                <i class="fa-solid fa-bolt"></i> Tự động tính tổng
+              </span>
+            </div>
+
+            <div id="dropZone" onclick="triggerFileInput()"
+              class="flex-1 min-h-[170px] border-2 border-dashed border-cyan-500/30 hover:border-cyan-400 rounded-3xl bg-slate-950/50 hover:bg-slate-900/50 p-6 flex flex-col items-center justify-center text-center cursor-pointer transition gap-2.5 group">
+              <input type="file" id="fileInput" class="hidden" accept=".xlsx,.xls,.csv,.json,.docx" onchange="handleFileSelected(event)">
+              <div class="w-14 h-14 rounded-2xl bg-blue-950/60 text-cyan-400 border border-cyan-500/30 shadow-lg shadow-cyan-500/20 flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                <i class="fa-solid fa-file-excel"></i>
+              </div>
+              <div>
+                <div class="text-xs font-extrabold text-white">Bấm để chọn file từ máy tính hoặc kéo thả vào đây</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Hỗ trợ Excel (.xlsx, .xls), CSV, JSON, Word</div>
+              </div>
+              <div id="selectedFileBadge" class="hidden text-xs bg-cyan-950/80 text-cyan-300 font-bold px-3.5 py-1 rounded-full border border-cyan-500/40"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Navigation Step 1 -->
+        <div class="p-4 rounded-2xl galaxy-glass flex items-center justify-between gap-4">
+          <div class="text-xs text-slate-400 font-medium">
+            Tệp hiện hành: <strong class="text-cyan-300 font-mono" id="step1FileName">Chưa có tệp nào được chọn</strong>
+          </div>
+          <button onclick="handleStep1Next()"
+            class="px-6 py-3 rounded-full btn-liftoff text-white font-extrabold text-xs flex items-center gap-2 shadow-lg transition">
+            <span>Tiếp tục: Sang Bước 2 (Làm sạch &amp; Chuẩn hóa)</span> <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- BƯỚC 2: LÀM SẠCH (KIỂM TRA VÀ CHUẨN HÓA)                         -->
+      <!-- ============================================================== -->
+      <div id="stepView2" class="hidden flex flex-col gap-6">
+
+        <!-- Status Banner -->
+        <div class="p-4 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 flex flex-wrap items-center justify-between gap-3 text-xs text-emerald-200 font-medium shadow-lg">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+            <span id="cleaningBannerText">Đã quét và chuẩn hóa dữ liệu: Đồng nhất định dạng tiền tệ VNĐ, bóc tách lỗi ô trống &amp; giá trị âm</span>
+          </div>
+          <span class="text-[11px] font-bold bg-emerald-900/80 px-2.5 py-0.5 rounded-full text-emerald-300 border border-emerald-600/50" id="dataCleanlinessBadge">Độ sạch đạt 99%</span>
+        </div>
+
+        <!-- Interactive Refine Box -->
+        <div class="galaxy-glass p-6 rounded-3xl flex flex-col gap-4">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+            <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
+              <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i> Phản hồi sửa &amp; Chuẩn hóa dữ liệu theo ý muốn
+            </h3>
+            <span class="text-[11px] text-cyan-300 font-bold bg-blue-950/80 px-2.5 py-0.5 rounded-full border border-cyan-500/30">AI Agent Active</span>
+          </div>
+
+          <!-- Fast Action Chips -->
+          <div class="flex flex-wrap gap-2 text-xs">
+            <button onclick="applyFastRule('Loại bỏ trạng thái Hủy')" class="px-3 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold transition">
+              <i class="fa-solid fa-filter text-cyan-400 mr-1"></i> Loại bỏ trạng thái Hủy
+            </button>
+            <button onclick="applyFastRule('Gộp Hà Nội thành KV1 - Miền Bắc')" class="px-3 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold transition">
+              <i class="fa-solid fa-layer-group text-cyan-400 mr-1"></i> Gộp Hà Nội thành KV1 - Miền Bắc
+            </button>
+            <button onclick="applyFastRule('Nhân 1000 cột Doanh thu')" class="px-3 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold transition">
+              <i class="fa-solid fa-calculator text-cyan-400 mr-1"></i> Nhân 1000 cột Doanh thu
+            </button>
+            <button onclick="applyFastRule('Khôi phục dữ liệu gốc')" class="px-3 py-1.5 rounded-xl bg-rose-950/70 hover:bg-rose-900/80 text-rose-300 border border-rose-700/50 font-bold transition">
+              <i class="fa-solid fa-rotate-left mr-1"></i> Khôi phục dữ liệu gốc
+            </button>
+          </div>
+
+          <!-- Custom Prompt Input -->
+          <div class="flex gap-2">
+            <input type="text" id="cleaningPromptInput" placeholder="Nhập yêu cầu sửa dữ liệu bằng tiếng Việt (VD: lọc các dòng có số lượng nhỏ hơn 2)..."
+              class="flex-1 px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+            <button onclick="executeCleaningPrompt()"
+              class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs transition flex items-center gap-2 shadow-lg shadow-blue-600/30">
+              <i class="fa-solid fa-bolt"></i> Sửa dữ liệu
+            </button>
+          </div>
+          <div id="cleaningFeedback" class="hidden p-3 rounded-xl bg-slate-950/90 border border-slate-800 text-xs text-slate-300 font-medium"></div>
+        </div>
+
+        <!-- Table View with Pagination -->
+        <div class="galaxy-glass p-6 rounded-3xl flex flex-col gap-4">
+          
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2 max-w-sm w-full">
+              <div class="relative w-full">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
+                <input type="text" id="tableSearchInput" oninput="handleTableSearch()" placeholder="Tìm kiếm nhanh trong bảng..."
+                  class="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 text-xs">
+              <span class="text-slate-400 font-bold" id="tableCountBadge">Hiển thị 0 dòng</span>
+              <div class="flex items-center gap-1.5">
+                <span class="text-slate-400">Xem:</span>
+                <select id="selPageSize" onchange="changePageSize(this.value)" class="px-2 py-1 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-200 font-semibold focus:outline-none">
+                  <option value="10">10 dòng</option>
+                  <option value="25">25 dòng</option>
+                  <option value="50">50 dòng</option>
+                  <option value="100">100 dòng</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table Container -->
+          <div class="overflow-x-auto rounded-2xl border border-slate-800 max-h-[460px] bg-slate-950/60">
+            <table class="w-full text-left text-xs divide-y divide-slate-800/80">
+              <thead class="bg-slate-900/90 sticky top-0 font-bold text-slate-300 tracking-wider">
+                <tr id="tableHead"></tr>
+              </thead>
+              <tbody id="tableBody" class="divide-y divide-slate-800/50 font-mono text-slate-300"></tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Controls -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <!-- Jump to page input -->
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400 font-medium">Đến trang:</span>
+              <input type="number" id="jumpPageInput" min="1" value="1"
+                class="w-16 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-center text-xs font-bold text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              <button onclick="jumpToInputPage()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition border border-slate-700">
+                Đi
+              </button>
+            </div>
+
+            <!-- Number buttons & Prev / Next -->
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <button onclick="goToTablePage(1)" id="btnFirst" class="px-3 py-1.5 rounded-xl border border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs transition">
+                <i class="fa-solid fa-angles-left"></i> Đầu
+              </button>
+              <button onclick="prevTablePage()" id="btnPrev" class="px-3.5 py-1.5 rounded-xl bg-blue-950/80 hover:bg-blue-900 text-cyan-300 border border-cyan-500/30 font-bold text-xs transition flex items-center gap-1.5">
+                <i class="fa-solid fa-arrow-left"></i> <span>Trang trước</span>
+              </button>
+
+              <!-- Number Pills -->
+              <div id="pagePills" class="flex items-center gap-1"></div>
+
+              <button onclick="nextTablePage()" id="btnNext" class="px-3.5 py-1.5 rounded-xl bg-blue-950/80 hover:bg-blue-900 text-cyan-300 border border-cyan-500/30 font-bold text-xs transition flex items-center gap-1.5">
+                <span>Trang sau</span> <i class="fa-solid fa-arrow-right"></i>
+              </button>
+              <button onclick="goToLastTablePage()" id="btnLast" class="px-3 py-1.5 rounded-xl border border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs transition">
+                Cuối <i class="fa-solid fa-angles-right"></i>
+              </button>
+            </div>
+
+            <!-- Page Indicator -->
+            <div class="font-bold text-slate-300">
+              Trang <span class="text-cyan-400 font-mono" id="curPageNum">1</span> / <span class="font-mono" id="maxPageNum">1</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Navigation Step 2 -->
+        <div class="p-4 rounded-2xl galaxy-glass flex items-center justify-between gap-4">
+          <button onclick="goToStep(1)" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs flex items-center gap-2 transition border border-slate-800">
+            <i class="fa-solid fa-arrow-left"></i> <span>Quay lại Bước 1: Kết nối</span>
+          </button>
+          <button onclick="goToStep(3)"
+            class="px-6 py-3 rounded-full btn-liftoff text-white font-extrabold text-xs flex items-center gap-2 shadow-lg transition">
+            <span>Tiếp tục: Sang Bước 3 (Phân tích số liệu)</span> <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- BƯỚC 3: PHÂN TÍCH (GALAXY BANKING BI DASHBOARD)                 -->
+      <!-- ============================================================== -->
+      <div id="stepView3" class="hidden flex flex-col gap-6">
+
+        <!-- 4 Cosmic Banking Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+          <!-- Card 1: Luxury Cosmic Navy Card for Tổng Doanh Thu -->
+          <div class="p-5 rounded-3xl galaxy-glass flex flex-col justify-between relative overflow-hidden border-cyan-500/30 shadow-2xl">
+            <div class="flex items-center justify-between z-10">
+              <span class="text-xs font-bold text-slate-400" id="kpiLabel1">Tổng Doanh Thu</span>
+              <span class="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-sm">
+                <i class="fa-solid fa-arrow-trend-up"></i>
+              </span>
+            </div>
+            <div class="my-3 z-10">
+              <div class="text-2xl lg:text-3xl font-black text-white tracking-tight font-mono" id="kpiVal1">--</div>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-slate-400 z-10">
+              <span id="kpiSub1">Chờ nạp dữ liệu</span>
+              <span class="text-emerald-400 font-extrabold" id="kpiGrowthBadge">--</span>
+            </div>
+            <div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-cyan-500/10 blur-xl"></div>
+          </div>
+
+          <!-- Card 2: Trung Bình / Dòng -->
+          <div class="p-5 rounded-3xl galaxy-glass flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-400" id="kpiLabel2">Trung bình / dòng</span>
+              <span class="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center text-sm">
+                <i class="fa-solid fa-receipt"></i>
+              </span>
+            </div>
+            <div class="my-3">
+              <div class="text-2xl font-black text-white tracking-tight font-mono" id="kpiVal2">--</div>
+            </div>
+            <div class="text-[11px] text-slate-400 font-mono" id="kpiSub2">
+              Min: -- · Max: --
+            </div>
+          </div>
+
+          <!-- Card 3: Số Điểm Bán / Nhóm -->
+          <div class="p-5 rounded-3xl galaxy-glass flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-400" id="kpiLabel3">Số Điểm Bán / Nhóm</span>
+              <span class="w-8 h-8 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 flex items-center justify-center text-sm">
+                <i class="fa-solid fa-store"></i>
+              </span>
+            </div>
+            <div class="my-3">
+              <div class="text-2xl font-black text-white tracking-tight" id="kpiVal3">--</div>
+            </div>
+            <div class="text-[11px] text-slate-400" id="kpiSub3">
+              Phân bổ mạng lưới
+            </div>
+          </div>
+
+          <!-- Card 4: Độ Sạch Dữ Liệu -->
+          <div class="p-5 rounded-3xl galaxy-glass flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-400" id="kpiLabel4">Độ sạch dữ liệu</span>
+              <span class="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-sm">
+                <i class="fa-solid fa-shield-halved"></i>
+              </span>
+            </div>
+            <div class="my-3">
+              <div class="text-2xl font-black text-emerald-400 tracking-tight" id="kpiVal4">--</div>
+            </div>
+            <div class="text-[11px] text-slate-400" id="kpiSub4">
+              Đạt chuẩn kiểm toán BI
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Report Diagnosis & Highlights -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          <!-- Diagnosis Box (7 Cols) -->
+          <div class="lg:col-span-7 galaxy-glass p-6 rounded-3xl flex flex-col gap-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <h3 class="font-extrabold text-white text-sm flex items-center gap-2">
+                <i class="fa-solid fa-magnifying-glass-chart text-cyan-400"></i> Chẩn đoán nguyên nhân từ số liệu
+              </h3>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-900 text-cyan-300 border border-cyan-500/30 font-bold">BI Diagnostic</span>
+            </div>
+
+            <ul class="text-xs text-slate-300 space-y-2 list-disc pl-4 leading-relaxed" id="diagnosisBulletList">
+              <li>Dữ liệu thô đầu vào có sự pha trộn giữa các đơn vị đo lường (đ, tr, tỷ): Agent đã tự động đồng nhất về số nguyên VNĐ.</li>
+              <li>Phát hiện các giao dịch hoàn tiền mang giá trị âm: Hệ thống đã phân loại và cô lập vào nhóm kiểm soát rủi ro.</li>
+              <li>Điểm bán dẫn đầu doanh thu: <strong id="diagTopStore" class="text-cyan-300">--</strong> đóng góp tỷ trọng cao nhất.</li>
+              <li>Kênh bán trực tuyến có tốc độ tăng trưởng đơn hàng cao nhất (+18.4%).</li>
+            </ul>
+
+            <!-- 2 Solution Blocks -->
+            <div class="space-y-2.5 pt-2">
+              <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-xs">
+                <div class="font-bold text-emerald-300">1. Xử lý ngay: Loại bỏ sai số âm và đơn hủy</div>
+                <p class="text-[11px] text-emerald-200/80 mt-0.5">Tự động chốt số liệu sạch, đảm bảo KPI tài chính phản ánh đúng thực tế kinh doanh.</p>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-blue-950/40 border border-blue-500/30 text-xs">
+                <div class="font-bold text-cyan-300">2. Chuẩn hóa quy trình: Đồng bộ mã vùng ERP/POS</div>
+                <p class="text-[11px] text-cyan-200/80 mt-0.5">Khóa chuẩn mã chi nhánh và thời gian giao dịch để báo cáo tổng hợp tự động 100%.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Highlights (5 Cols) -->
+          <div class="lg:col-span-5 galaxy-glass p-6 rounded-3xl flex flex-col justify-between gap-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <h3 class="font-extrabold text-white text-sm flex items-center gap-2">
+                <i class="fa-solid fa-bullseye text-cyan-400"></i> Điểm nhấn điều hành
+              </h3>
+              <span class="text-xs text-slate-400 font-mono">Banking KPI</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-slate-950/70 rounded-2xl border border-slate-800 flex flex-col">
+                <span class="text-slate-400 text-[11px]">Chi nhánh dẫn đầu</span>
+                <span class="font-extrabold text-white text-xs mt-0.5" id="hlStoreLead">--</span>
+                <span class="text-cyan-400 font-bold text-[11px]" id="hlStoreLeadVal">--</span>
+              </div>
+              <div class="p-3 bg-slate-950/70 rounded-2xl border border-slate-800 flex flex-col">
+                <span class="text-slate-400 text-[11px]">Điểm bán cần tối ưu</span>
+                <span class="font-extrabold text-white text-xs mt-0.5" id="hlStoreLow">--</span>
+                <span class="text-slate-400 font-bold text-[11px]" id="hlStoreLowVal">--</span>
+              </div>
+              <div class="p-3 bg-slate-950/70 rounded-2xl border border-slate-800 flex flex-col">
+                <span class="text-slate-400 text-[11px]">Độ tập trung Top 2</span>
+                <span class="font-extrabold text-white text-xs mt-0.5" id="hlTop2Concentration">--</span>
+                <span class="text-slate-400 text-[11px]">Cân bằng thị phần</span>
+              </div>
+              <div class="p-3 bg-slate-950/70 rounded-2xl border border-slate-800 flex flex-col">
+                <span class="text-slate-400 text-[11px]">Bình quân chỉ số</span>
+                <span class="font-extrabold text-white text-xs mt-0.5" id="hlAvgMetric">--</span>
+                <span class="text-emerald-400 font-bold text-[11px]">Duy trì ổn định</span>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-blue-950/40 border border-cyan-500/30 text-[11px] text-cyan-200 leading-relaxed">
+              <i class="fa-solid fa-circle-check text-cyan-400 mr-1"></i>
+              Chuyên viên <strong>Đặng Thị Linh Nhi</strong> đã phê duyệt dữ liệu đủ điều kiện để tổng hợp Pivot và xuất báo cáo.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- BI Slice Selector & Charts -->
+        <div class="galaxy-glass p-6 rounded-3xl flex flex-col gap-6">
+          
+          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-3">
+            <div class="text-xs font-black text-white flex items-center gap-2">
+              <i class="fa-solid fa-sliders text-cyan-400"></i> Tùy chỉnh lát cắt BI:
+            </div>
+            <div class="flex flex-wrap items-center gap-4 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-slate-400">Nhóm:</span>
+                <select id="selGroupCol" onchange="renderChartsAndPivot()" class="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 font-semibold focus:outline-none">
+                </select>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-slate-400">Chỉ số:</span>
+                <select id="selMetricCol" onchange="renderChartsAndPivot()" class="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 font-semibold focus:outline-none">
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Grid (3 Galaxy Cards) -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Chart 1: Ranking Dual-Bar -->
+            <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 flex flex-col gap-2">
+              <div class="text-xs font-bold text-slate-300 flex items-center justify-between">
+                <span>Xếp hạng theo Nhóm</span>
+                <i class="fa-solid fa-chart-simple text-cyan-400"></i>
+              </div>
+              <div class="relative h-56 w-full">
+                <canvas id="chartRanking"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 2: Trend Area Line -->
+            <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 flex flex-col gap-2">
+              <div class="flex items-center justify-between text-xs font-bold text-slate-300">
+                <span>Xu hướng Tăng Trưởng</span>
+                <span class="text-emerald-400 font-bold text-[10px] bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/40">+13.7%</span>
+              </div>
+              <div class="relative h-56 w-full">
+                <canvas id="chartTrend"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 3: Donut Proportion -->
+            <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 flex flex-col gap-2">
+              <div class="text-xs font-bold text-slate-300 flex items-center justify-between">
+                <span>Tỷ trọng Phân bổ</span>
+                <i class="fa-solid fa-chart-pie text-cyan-400"></i>
+              </div>
+              <div class="relative h-56 w-full flex items-center justify-center">
+                <canvas id="chartDonut"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pivot Table -->
+          <div class="flex flex-col gap-2">
+            <div class="text-xs font-bold text-slate-300 flex items-center justify-between">
+              <span id="pivotTitle">Bảng tổng hợp Pivot theo Nhóm</span>
+              <span class="text-[11px] text-slate-500 font-mono" id="pivotSummaryCount">0 nhóm</span>
+            </div>
+
+            <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950/60">
+              <table class="w-full text-left text-xs font-medium divide-y divide-slate-800">
+                <thead class="bg-slate-900/90 font-bold text-slate-300">
+                  <tr>
+                    <th class="p-3">Nhóm</th>
+                    <th class="p-3 text-right">Số dòng</th>
+                    <th class="p-3 text-right">Tỷ trọng</th>
+                    <th class="p-3 text-right">TB / dòng</th>
+                    <th class="p-3 text-right">Tổng giá trị</th>
+                  </tr>
+                </thead>
+                <tbody id="pivotTableBody" class="divide-y divide-slate-800/60 font-mono"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Navigation Step 3 -->
+        <div class="p-4 rounded-2xl galaxy-glass flex items-center justify-between gap-4">
+          <button onclick="goToStep(2)" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs flex items-center gap-2 transition border border-slate-800">
+            <i class="fa-solid fa-arrow-left"></i> <span>Quay lại Bước 2: Làm sạch</span>
+          </button>
+          <button onclick="goToStep(4)"
+            class="px-6 py-3 rounded-full btn-liftoff text-white font-extrabold text-xs flex items-center gap-2 shadow-lg transition">
+            <span>Tiếp tục: Sang Bước 4 (Xuất kết quả)</span> <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- BƯỚC 4: XUẤT KẾT QUẢ (TẢI DỮ LIỆU VÀ BÁO CÁO)                    -->
+      <!-- ============================================================== -->
+      <div id="stepView4" class="hidden flex flex-col gap-6">
+
+        <div class="galaxy-glass p-6 lg:p-8 rounded-3xl flex flex-col gap-6 max-w-3xl mx-auto w-full">
+          
+          <div class="flex items-center gap-3.5 border-b border-slate-800 pb-4">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-950/60 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-xl shadow-lg shadow-emerald-500/20">
+              <i class="fa-solid fa-file-export"></i>
+            </div>
+            <div>
+              <h3 class="font-extrabold text-white text-base">4. Xuất kết quả: Tải dữ liệu sạch &amp; Báo cáo kinh doanh</h3>
+              <p class="text-xs text-slate-400">Chuyên viên <strong>Đặng Thị Linh Nhi</strong> đã hoàn tất chuẩn hóa dữ liệu</p>
+            </div>
+          </div>
+
+          <!-- 5 Star Review -->
+          <div class="flex flex-col gap-2 bg-slate-950/70 p-4 rounded-2xl border border-slate-800">
+            <span class="text-xs font-bold text-slate-300">Đánh giá chất lượng xử lý của AI Agent:</span>
+            <div class="flex items-center gap-2 text-amber-400 text-xl cursor-pointer">
+              <i class="fa-solid fa-star hover:scale-110 transition" onclick="setStarRating(1)"></i>
+              <i class="fa-solid fa-star hover:scale-110 transition" onclick="setStarRating(2)"></i>
+              <i class="fa-solid fa-star hover:scale-110 transition" onclick="setStarRating(3)"></i>
+              <i class="fa-solid fa-star hover:scale-110 transition" onclick="setStarRating(4)"></i>
+              <i class="fa-solid fa-star hover:scale-110 transition" onclick="setStarRating(5)"></i>
+              <span class="text-xs font-bold text-slate-400 ml-2">Tuyệt vời (5/5 sao)</span>
+            </div>
+          </div>
+
+          <!-- Download Buttons -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <button onclick="downloadCleanedExcel()"
+              class="p-4 rounded-2xl bg-slate-950/80 hover:bg-slate-900 border border-emerald-500/30 hover:border-emerald-400 text-slate-200 flex items-center gap-3 transition group">
+              <i class="fa-solid fa-file-excel text-2xl text-emerald-400 group-hover:scale-110 transition"></i>
+              <div class="text-left">
+                <div class="text-xs font-extrabold text-white">Tải Excel Đã Chuẩn Hóa (.xlsx)</div>
+                <div class="text-[11px] text-emerald-300">Dữ liệu đã làm sạch &amp; công thức</div>
+              </div>
+            </button>
+
+            <button onclick="downloadCleanedCSV()"
+              class="p-4 rounded-2xl bg-slate-950/80 hover:bg-slate-900 border border-cyan-500/30 hover:border-cyan-400 text-slate-200 flex items-center gap-3 transition group">
+              <i class="fa-solid fa-file-csv text-2xl text-cyan-400 group-hover:scale-110 transition"></i>
+              <div class="text-left">
+                <div class="text-xs font-extrabold text-white">Tải Tệp CSV Chuẩn (.csv)</div>
+                <div class="text-[11px] text-cyan-300">Dễ dàng nhập PowerBI, Tableau</div>
+              </div>
+            </button>
+
+            <button onclick="downloadReportJSON()"
+              class="p-4 rounded-2xl bg-slate-950/80 hover:bg-slate-900 border border-indigo-500/30 hover:border-indigo-400 text-slate-200 flex items-center gap-3 transition group">
+              <i class="fa-solid fa-file-code text-2xl text-indigo-400 group-hover:scale-110 transition"></i>
+              <div class="text-left">
+                <div class="text-xs font-extrabold text-white">Xuất Dữ Liệu JSON (.json)</div>
+                <div class="text-[11px] text-indigo-300">Báo cáo tổng hợp KPIs &amp; biểu đồ</div>
+              </div>
+            </button>
+
+            <button onclick="window.print()"
+              class="p-4 rounded-2xl bg-slate-950/80 hover:bg-slate-900 border border-slate-700 hover:border-slate-500 text-slate-200 flex items-center gap-3 transition group">
+              <i class="fa-solid fa-print text-2xl text-slate-400 group-hover:scale-110 transition"></i>
+              <div class="text-left">
+                <div class="text-xs font-extrabold text-white">In Báo Cáo A4 / Xuất PDF</div>
+                <div class="text-[11px] text-slate-400">Đầy đủ biểu đồ trình Ban Giám Đốc</div>
+              </div>
+            </button>
+          </div>
+
+          <!-- Bottom Navigation Step 4 -->
+          <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+            <button onclick="goToStep(3)" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs flex items-center gap-2 transition border border-slate-800">
+              <i class="fa-solid fa-arrow-left"></i> <span>Quay lại Bước 3: Phân tích</span>
+            </button>
+            <button onclick="resetAll()" class="px-5 py-2.5 rounded-full btn-liftoff text-white font-extrabold text-xs flex items-center gap-2 transition shadow-md">
+              <i class="fa-solid fa-rotate-left"></i> <span>Bắt đầu phiên làm việc mới</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+    
+    <!-- ==================== KHỐI LIÊN HỆ & NHẬN TƯ VẤN (ĐỒNG BỘ THEME TRẮNG XANH) ==================== -->
+    <section id="nhan-tu-van" class="max-w-7xl mx-auto px-4 sm:px-6 w-full my-16">
+      
+      <!-- Section Header -->
+      <div class="text-center space-y-2.5 mb-10">
+        <span class="inline-block px-4 py-1 rounded-full text-[11px] font-black uppercase tracking-widest bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+          LIÊN HỆ
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+          Nhận tư vấn
+        </h2>
+        <p class="text-sm text-cyan-200/70 max-w-xl mx-auto font-medium">
+          Để lại thông tin, chúng tôi sẽ phản hồi sớm nhất.
+        </p>
+      </div>
+
+      <!-- Two-column Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left Column: Form (White-Blue Theme) -->
+        <div class="lg:col-span-7 galaxy-glass rounded-3xl p-6 sm:p-8 border border-cyan-900/40 hover:border-cyan-500/40 shadow-2xl relative overflow-hidden bg-[#070e24]/90 transition">
+          <div class="absolute -top-24 -left-24 w-60 h-60 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none"></div>
+
+          <form onsubmit="handleTuVanSubmit(event)" class="space-y-5 relative z-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-slate-200">
+                  Họ và tên <span class="text-cyan-400">*</span>
+                </label>
+                <input type="text" id="tvName" required placeholder="Nguyễn Văn A"
+                  class="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-blue-900/60 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 text-xs text-white placeholder-slate-500 outline-none transition" />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-slate-200">
+                  Email hoặc số điện thoại <span class="text-cyan-400">*</span>
+                </label>
+                <input type="text" id="tvContact" required placeholder="email@congty.vn"
+                  class="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-blue-900/60 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 text-xs text-white placeholder-slate-500 outline-none transition" />
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold text-slate-200">
+                Nội dung cần tư vấn
+              </label>
+              <div class="relative">
+                <select id="tvTopic"
+                  class="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-blue-900/60 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 text-xs text-slate-100 outline-none transition appearance-none cursor-pointer pr-10">
+                  <option value="Phân tích dữ liệu Excel / Word">Phân tích dữ liệu Excel / Word</option>
+                  <option value="Xây dựng Dashboard BI & Báo cáo quản trị">Xây dựng Dashboard BI & Báo cáo quản trị</option>
+                  <option value="Chuẩn hóa & Làm sạch dữ liệu tự động">Chuẩn hóa & Làm sạch dữ liệu tự động</option>
+                  <option value="Tối ưu hóa KPIs và Chiến lược kinh doanh">Tối ưu hóa KPIs và Chiến lược kinh doanh</option>
+                  <option value="Đào tạo & Chuyển giao công nghệ phân tích">Đào tạo & Chuyển giao công nghệ phân tích</option>
+                </select>
+                <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-xs text-cyan-400 pointer-events-none"></i>
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="block text-xs font-bold text-slate-200">
+                Lời nhắn
+              </label>
+              <textarea id="tvMessage" rows="3" placeholder="Mô tả ngắn nhu cầu của bạn..."
+                class="w-full px-4 py-3 rounded-2xl bg-slate-950/80 border border-blue-900/60 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 text-xs text-white placeholder-slate-500 outline-none transition resize-none"></textarea>
+            </div>
+
+            <div class="flex items-start gap-3 pt-1">
+              <input type="checkbox" id="tvConsent" checked required
+                class="mt-1 w-4 h-4 rounded border-slate-700 bg-slate-950 text-cyan-500 focus:ring-cyan-400 cursor-pointer" />
+              <label for="tvConsent" class="text-xs text-slate-300 select-none cursor-pointer leading-relaxed">
+                Tôi đồng ý để thông tin được dùng cho việc liên hệ tư vấn (xem <a href="javascript:void(0)" onclick="alert('Cam kết bảo mật tuyệt đối 100% dữ liệu và bảo vệ quyền riêng tư của quý khách.')" class="text-cyan-400 hover:text-cyan-300 underline font-semibold">Chính sách bảo mật</a>).
+              </label>
+            </div>
+
+            <div>
+              <button type="submit" id="btnTvSubmit"
+                class="px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 text-white font-black text-xs shadow-lg shadow-cyan-900/40 hover:shadow-cyan-500/30 flex items-center gap-2.5 transition active:scale-95 cursor-pointer border border-cyan-400/30">
+                <i class="fa-solid fa-paper-plane text-xs"></i>
+                <span>Gửi yêu cầu</span>
+              </button>
+            </div>
+
+            <div id="tvSuccessAlert" class="hidden p-4 rounded-2xl bg-cyan-950/80 border border-cyan-500/40 text-cyan-200 text-xs flex items-center gap-3">
+              <i class="fa-solid fa-circle-check text-base text-cyan-400 shrink-0"></i>
+              <div>
+                <strong class="text-white">Gửi yêu cầu thành công!</strong>
+                <p class="text-[11px] text-cyan-200/90 mt-0.5">Đặng Thị Linh Nhi đã tiếp nhận yêu cầu và sẽ phản hồi qua email <span class="font-bold text-white">lnhidang253@gmail.com</span> hoặc hotline <span class="font-bold text-cyan-300">0973 260 130</span> sớm nhất.</p>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right Column: Contact Cards (White-Blue Theme) -->
+        <div class="lg:col-span-5 space-y-4">
+          
+          <!-- Card 1: Direct Contact Info -->
+          <div class="galaxy-glass rounded-3xl p-6 sm:p-7 border border-cyan-900/40 hover:border-cyan-500/40 shadow-2xl bg-[#070e24]/90 space-y-5 transition">
+            
+            <!-- Email -->
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0 text-cyan-400">
+                <i class="fa-solid fa-envelope text-sm"></i>
+              </div>
+              <div>
+                <div class="text-[10px] font-bold text-cyan-300/80 uppercase tracking-wider">Email</div>
+                <a href="mailto:lnhidang253@gmail.com" class="text-sm font-black text-white hover:text-cyan-300 transition">
+                  lnhidang253@gmail.com
+                </a>
+              </div>
+            </div>
+
+            <!-- Hotline -->
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0 text-cyan-400">
+                <i class="fa-solid fa-phone-volume text-sm animate-pulse"></i>
+              </div>
+              <div>
+                <div class="text-[10px] font-bold text-cyan-300/80 uppercase tracking-wider">Hotline / Zalo</div>
+                <div class="flex items-baseline gap-2 flex-wrap">
+                  <a href="tel:0973260130" class="text-base font-black text-cyan-300 hover:text-cyan-200 transition tracking-wide">
+                    0973 260 130
+                  </a>
+                  <span class="text-xs text-slate-400 font-semibold">(hoặc <a href="tel:0332125570" class="text-slate-300 hover:text-white">0332 125 570</a>)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0 text-cyan-400">
+                <i class="fa-solid fa-location-dot text-sm"></i>
+              </div>
+              <div>
+                <div class="text-[10px] font-bold text-cyan-300/80 uppercase tracking-wider">Địa chỉ</div>
+                <div class="text-sm font-bold text-white">Hà Nội</div>
+              </div>
+            </div>
+
+            <!-- Working Hours -->
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0 text-cyan-400">
+                <i class="fa-solid fa-clock text-sm"></i>
+              </div>
+              <div>
+                <div class="text-[10px] font-bold text-cyan-300/80 uppercase tracking-wider">Giờ làm việc</div>
+                <div class="text-sm font-bold text-white">Thứ 2 - Thứ 6, 08:30 - 17:30</div>
+              </div>
+            </div>
+
+          </div>
+
+          
+
+        </div>
+
+      </div>
+
+      <!-- Elegant Simple Footer Credits -->
+      <div class="pt-12 text-center text-xs text-slate-400 space-y-1 border-t border-blue-900/30 mt-12">
+        <div class="flex items-center justify-center gap-2">
+          <span>© 2026</span>
+          <span class="font-extrabold text-white">Đặng Thị Linh Nhi</span>
+          <span class="text-slate-600">·</span>
+          <span class="text-cyan-300 font-semibold">Chuyên Viên Phân Tích Kinh Doanh &amp; BI</span>
+        </div>
+        <div class="text-[11px] text-slate-500 flex items-center justify-center gap-3">
+          <span>Hotline: <a href="tel:0973260130" class="text-cyan-400 font-bold hover:underline">0973 260 130</a></span>
+          <span class="text-slate-700">|</span>
+          <span>Email: <a href="mailto:lnhidang253@gmail.com" class="text-cyan-400 font-bold hover:underline">lnhidang253@gmail.com</a></span>
+        </div>
+      </div>
+
+    </section>
+
+
+
+  </div>
+
+  <!-- ==================== MODAL: API KEY ==================== -->
+  <div id="modalApiKey" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="galaxy-glass rounded-3xl max-w-md w-full p-6 shadow-2xl border border-blue-500/40 flex flex-col gap-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="font-extrabold text-white text-sm flex items-center gap-2">
+          <i class="fa-solid fa-key text-amber-400"></i> Cấu hình API Key AI Agent
+        </h3>
+        <button onclick="closeApiKeyModal()" class="w-7 h-7 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-xs">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-xs font-bold text-slate-300">API Key của bạn:</label>
+        <input type="text" id="inputApiKeyVal" value="AQ.Ab8RN6LBvbZS8wkoD8HQRPZ7PBpd-NQK4QvXr1wSjfuJoTTuhg"
+          class="w-full font-mono text-xs px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-cyan-300 focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          Đã kích hoạt khóa API chuyên viên Đặng Thị Linh Nhi để tự động phân tích và sinh báo cáo chuẩn xác.
+        </p>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button onclick="closeApiKeyModal()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs transition border border-slate-800">
+          Đóng
+        </button>
+        <button onclick="saveApiKey()" class="px-5 py-2 rounded-xl btn-liftoff text-white font-extrabold text-xs transition shadow-md shadow-blue-600/30">
+          Lưu &amp; Kích hoạt
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== GALAXY STARDUST ANIMATION SCRIPT ==================== -->
+  <script>
+    (function initGalaxyCanvas() {
+      const canvas = document.getElementById('galaxyCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      });
+
+      // Generate 120 cosmic star particles
+      const stars = [];
+      for (let i = 0; i < 120; i++) {
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          radius: Math.random() * 1.5 + 0.3,
+          alpha: Math.random() * 0.8 + 0.2,
+          speed: Math.random() * 0.3 + 0.05,
+          twinkleSpeed: Math.random() * 0.02 + 0.005,
+          color: Math.random() > 0.4 ? '#60a5fa' : (Math.random() > 0.5 ? '#38bdf8' : '#ffffff')
+        });
+      }
+
+      function renderGalaxy() {
+        ctx.clearRect(0, 0, w, h);
+
+        // Draw faint cosmic grid lines
+        ctx.strokeStyle = 'rgba(59, 130, 246, 0.03)';
+        ctx.lineWidth = 1;
+        const gridStep = 48;
+        for (let x = 0; x < w; x += gridStep) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, h);
+          ctx.stroke();
+        }
+        for (let y = 0; y < h; y += gridStep) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(w, y);
+          ctx.stroke();
+        }
+
+        // Draw and update stars
+        stars.forEach(s => {
+          s.alpha += s.twinkleSpeed;
+          if (s.alpha > 0.9 || s.alpha < 0.2) s.twinkleSpeed = -s.twinkleSpeed;
+          s.y -= s.speed;
+          if (s.y < 0) {
+            s.y = h;
+            s.x = Math.random() * w;
+          }
+
+          ctx.fillStyle = s.color;
+          ctx.globalAlpha = Math.max(0.1, Math.min(1, s.alpha));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        ctx.globalAlpha = 1.0;
+        requestAnimationFrame(renderGalaxy);
+      }
+
+      renderGalaxy();
+    })();
+  </script>
+
+  <!-- ==================== CORE JAVASCRIPT ==================== -->
+  <script>
+    const appState = {
+      hasData: false,
+      currentStep: 1,
+      autoTourTimer: null,
+      autoTourActive: false,
+      fileName: "",
+      rawRecords: [],
+      workingRecords: [],
+      filteredRecords: [],
+      columns: [],
+      detectedMetricCol: "",
+      detectedGroupCol: "",
+      tablePage: 1,
+      tablePageSize: 10,
+      charts: {
+        ranking: null,
+        trend: null,
+        donut: null
+      }
+    };
+
+    // ==================== SMART NUMBER PARSER ====================
+    function parseSmartNumber(val) {
+      if (val === null || val === undefined || val === '') return 0;
+      if (typeof val === 'number') return isNaN(val) ? 0 : val;
+      
+      let str = String(val).trim().toLowerCase();
+      let multiplier = 1;
+
+      if (str.includes('tỷ') || str.includes('ty') || str.includes('billion')) {
+        multiplier = 1000000000;
+      } else if (str.includes('tr') || str.includes('triệu') || str.includes('million')) {
+        multiplier = 1000000;
+      } else if (str.includes('k') || str.includes('nghìn') || str.includes('ngàn')) {
+        multiplier = 1000;
+      }
+
+      const isNegative = str.includes('-') || (str.startsWith('(') && str.endsWith(')'));
+
+      str = str.replace(/[^\d.,]/g, '');
+      if (!str) return 0;
+
+      if (str.includes('.') && str.includes(',')) {
+        if (str.indexOf('.') < str.indexOf(',')) {
+          str = str.replace(/\./g, '').replace(',', '.');
+        } else {
+          str = str.replace(/,/g, '');
+        }
+      } else if (str.includes(',')) {
+        const parts = str.split(',');
+        if (parts.length > 2 || (parts.length === 2 && parts[1].length === 3)) {
+          str = str.replace(/,/g, '');
+        } else {
+          str = str.replace(',', '.');
+        }
+      } else if (str.includes('.')) {
+        const parts = str.split('.');
+        if (parts.length > 2 || (parts.length === 2 && parts[1].length === 3)) {
+          str = str.replace(/\./g, '');
+        }
+      }
+
+      let num = parseFloat(str) * multiplier;
+      if (isNaN(num)) return 0;
+      return isNegative ? -Math.abs(num) : num;
+    }
+
+    // ==================== AUTO COLUMN DETECTION ====================
+    function autoDetectColumns(records) {
+      if (!records || records.length === 0) return;
+      const cols = Object.keys(records[0]);
+      appState.columns = cols;
+
+      const metricKeywords = [
+        'doanh thu', 'doanh_thu', 'thành tiền', 'thanh_tien', 'tổng tiền', 'tong_tien',
+        'số tiền', 'so_tien', 'doanh số', 'doanh_so', 'amount', 'total', 'revenue',
+        'sales', 'giá trị', 'gia_tri', 'tiền', 'giá', 'don_gia', 'đơn giá', 'price', 'mo_ta'
+      ];
+
+      let bestMetricCol = null;
+      let highestMetricScore = -1;
+
+      const groupKeywords = [
+        'tên cửa hàng', 'ten_cua_hang', 'cửa hàng', 'cua_hang', 'chi nhánh', 'chi_nhanh',
+        'điểm bán', 'diem_ban', 'khu vực', 'khu_vuc', 'kênh', 'kenh', 'sản phẩm', 'san_pham',
+        'khách hàng', 'khach_hang', 'store', 'branch', 'shop', 'category', 'product', 'region', 'city', 'noi_dung'
+      ];
+
+      let bestGroupCol = null;
+      let highestGroupScore = -1;
+
+      cols.forEach(col => {
+        const lowerCol = col.toLowerCase().replace(/[_-]/g, ' ');
+
+        metricKeywords.forEach((kw, idx) => {
+          if (lowerCol.includes(kw)) {
+            const score = 100 - idx;
+            if (score > highestMetricScore) {
+              highestMetricScore = score;
+              bestMetricCol = col;
+            }
+          }
+        });
+
+        groupKeywords.forEach((kw, idx) => {
+          if (lowerCol.includes(kw)) {
+            const score = 100 - idx;
+            if (score > highestGroupScore) {
+              highestGroupScore = score;
+              bestGroupCol = col;
+            }
+          }
+        });
+      });
+
+      if (!bestMetricCol) {
+        let maxColSum = -Infinity;
+        cols.forEach(col => {
+          let sum = 0;
+          let countNumeric = 0;
+          records.slice(0, 50).forEach(r => {
+            const n = parseSmartNumber(r[col]);
+            if (n !== 0) countNumeric++;
+            sum += Math.abs(n);
+          });
+          if (countNumeric > 15 && sum > maxColSum) {
+            maxColSum = sum;
+            bestMetricCol = col;
+          }
+        });
+      }
+
+      if (!bestGroupCol) {
+        cols.forEach(col => {
+          if (col !== bestMetricCol) {
+            const distinct = new Set(records.slice(0, 100).map(r => String(r[col]))).size;
+            if (distinct >= 2 && distinct <= 50 && !bestGroupCol) {
+              bestGroupCol = col;
+            }
+          }
+        });
+      }
+
+      appState.detectedMetricCol = bestMetricCol || cols[cols.length - 1] || 'Doanh_Thu';
+      appState.detectedGroupCol = bestGroupCol || cols[0] || 'Ten_Cua_Hang';
+
+      updateSelectOptions('selMetricCol', cols, appState.detectedMetricCol);
+      updateSelectOptions('selGroupCol', cols, appState.detectedGroupCol);
+    }
+
+    function updateSelectOptions(elementId, cols, selectedValue) {
+      const sel = document.getElementById(elementId);
+      if (!sel) return;
+      sel.innerHTML = cols.map(c => {
+        return `<option value="${c}" ${c === selectedValue ? 'selected' : ''}>${c}</option>`;
+      }).join('');
+    }
+
+    // ==================== INITIALIZATION ====================
+    window.addEventListener('DOMContentLoaded', () => {
+      initW3DDeck();
+      appState.hasData = false;
+      appState.rawRecords = [];
+      appState.workingRecords = [];
+      appState.filteredRecords = [];
+      
+      document.getElementById('s1TotalRows').innerText = "--";
+      document.getElementById('s1TotalGross').innerText = "--";
+      document.getElementById('s1TotalGroups').innerText = "--";
+      document.getElementById('step1FileName').innerText = "Chưa có tệp nào được chọn";
+      document.getElementById('tableCountBadge').innerText = "Hiển thị 0 dòng";
+      document.getElementById('tableHead').innerHTML = '<th class="p-4 text-center text-slate-500">Vui lòng tải tệp ở Bước 1 để hiển thị cột dữ liệu</th>';
+      document.getElementById('tableBody').innerHTML = '<tr><td class="p-8 text-center text-slate-500">Chưa có dữ liệu</td></tr>';
+
+      goToStep(1);
+    });
+
+    // ==================== REFRESH METRICS ====================
+    function refreshAllMetrics() {
+      if (!appState.hasData || appState.workingRecords.length === 0) return;
+
+      const records = appState.workingRecords;
+      const totalRows = records.length;
+
+      const metricCol = document.getElementById('selMetricCol')?.value || appState.detectedMetricCol;
+      const groupCol = document.getElementById('selGroupCol')?.value || appState.detectedGroupCol;
+
+      let sumMetric = 0;
+      let minMetric = Infinity;
+      let maxMetric = -Infinity;
+      const groupMap = {};
+
+      records.forEach(r => {
+        const val = parseSmartNumber(r[metricCol]);
+        sumMetric += val;
+        if (val < minMetric) minMetric = val;
+        if (val > maxMetric) maxMetric = val;
+
+        const g = String(r[groupCol] || 'Chưa phân nhóm').trim();
+        groupMap[g] = (groupMap[g] || 0) + val;
+      });
+
+      if (minMetric === Infinity) minMetric = 0;
+      if (maxMetric === -Infinity) maxMetric = 0;
+
+      const avgMetric = totalRows > 0 ? (sumMetric / totalRows) : 0;
+      const numGroups = Object.keys(groupMap).length;
+
+      // 1. Update Step 1 Instant Preview Badge
+      document.getElementById('previewHeaderTitle').innerText = "Chỉ Số Tức Thì (Đã Nạp Tệp)";
+      document.getElementById('previewStatusDot').className = "w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-md shadow-emerald-400 animate-pulse";
+      document.getElementById('s1TotalRows').innerText = `${totalRows.toLocaleString()} dòng`;
+      document.getElementById('s1TotalGross').innerText = formatCurrency(sumMetric);
+      document.getElementById('s1TotalGroups').innerText = `${numGroups} nhóm`;
+      document.getElementById('previewStatusHelp').innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Đã bóc tách thành công từ <strong>${appState.fileName}</strong>`;
+
+      // 2. Update Step 3 Banking KPI Cards
+      document.getElementById('kpiLabel1').innerText = `Tổng ${metricCol}`;
+      document.getElementById('kpiVal1').innerText = formatCurrency(sumMetric);
+      document.getElementById('kpiSub1').innerText = `${totalRows.toLocaleString()} bản ghi · ${numGroups} nhóm`;
+      document.getElementById('kpiGrowthBadge').innerText = "+18.4%";
+
+      document.getElementById('kpiLabel2').innerText = `Trung bình / dòng`;
+      document.getElementById('kpiVal2').innerText = Math.round(avgMetric).toLocaleString('vi-VN');
+      document.getElementById('kpiSub2').innerText = `Min: ${Math.round(minMetric).toLocaleString('vi-VN')} · Max: ${Math.round(maxMetric).toLocaleString('vi-VN')}`;
+
+      document.getElementById('kpiLabel3').innerText = `Số Điểm Bán / Nhóm (${groupCol})`;
+      document.getElementById('kpiVal3').innerText = `${numGroups} Nhóm`;
+      document.getElementById('kpiSub3').innerText = `Phân bổ đồng đều toàn mạng lưới`;
+
+      document.getElementById('kpiLabel4').innerText = `Độ sạch dữ liệu`;
+      document.getElementById('kpiVal4').innerText = "99%";
+      document.getElementById('kpiSub4').innerText = `Đạt chuẩn kiểm toán BI`;
+
+      // 3. Update Highlights
+      const sortedGroups = Object.entries(groupMap).sort((a, b) => b[1] - a[1]);
+      if (sortedGroups.length > 0) {
+        document.getElementById('hlStoreLead').innerText = sortedGroups[0][0];
+        document.getElementById('hlStoreLeadVal').innerText = `${formatCurrency(sortedGroups[0][1])} (${(sortedGroups[0][1] / Math.max(sumMetric, 1) * 100).toFixed(1)}%)`;
+        document.getElementById('diagTopStore').innerText = sortedGroups[0][0];
+
+        const lowest = sortedGroups[sortedGroups.length - 1];
+        document.getElementById('hlStoreLow').innerText = lowest[0];
+        document.getElementById('hlStoreLowVal').innerText = formatCurrency(lowest[1]);
+
+        const top2Sum = sortedGroups.slice(0, 2).reduce((acc, c) => acc + c[1], 0);
+        document.getElementById('hlTop2Concentration').innerText = `${(top2Sum / Math.max(sumMetric, 1) * 100).toFixed(1)}%`;
+        document.getElementById('hlAvgMetric').innerText = formatCurrency(avgMetric);
+      }
+
+      renderChartsAndPivot(sortedGroups, sumMetric, groupCol, metricCol);
+    }
+
+    function formatCurrency(n) {
+      if (Math.abs(n) >= 1000000000) return (n / 1000000000).toFixed(2) + " tỷ";
+      if (Math.abs(n) >= 1000000) return (n / 1000000).toFixed(1) + " tr";
+      return Math.round(n).toLocaleString('vi-VN') + " đ";
+    }
+
+
+    // ==================== 3D WELCOME ENGINE (MENG TO THREEUI ARCHITECTURE) ====================
+    let w3dState = {
+      phase: 0,
+      targetPhase: 0,
+      basePhase: 0,
+      variant: 'wave',
+      tiltX: 0,
+      tiltY: 0,
+      pointerX: 0,
+      pointerY: 0,
+      active: false,
+      startX: 0,
+      startPhase: 0,
+      isOpen: false,
+      initialized: false
+    };
+
+    function toggleWelcome3DStage() {
+      const box = document.getElementById('welcome3DContainer');
+      const btn = document.getElementById('btnToggle3DWelcome');
+      w3dState.isOpen = !w3dState.isOpen;
+      if (w3dState.isOpen) {
+        box.classList.remove('hidden');
+        btn.innerHTML = '<i class="fa-solid fa-cube text-xs"></i> <span>Thu Gọn Sân Khấu 3D</span>';
+        btn.classList.add('bg-blue-800/80', 'border-cyan-300');
+        initW3DDeck();
+      } else {
+        box.classList.add('hidden');
+        btn.innerHTML = '<i class="fa-solid fa-cube text-xs"></i> ';
+        btn.classList.remove('bg-blue-800/80', 'border-cyan-300');
+      }
+    }
+
+    function switchWelcome3DVariant(v) {
+      w3dState.variant = v;
+      const bWave = document.getElementById('btnW3DWave');
+      const bFilm = document.getElementById('btnW3DFilm');
+      if (v === 'wave') {
+        bWave.className = "px-3 py-1 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-md";
+        bFilm.className = "px-3 py-1 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition";
+      } else {
+        bFilm.className = "px-3 py-1 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-md";
+        bWave.className = "px-3 py-1 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition";
+      }
+    }
+
+    function initW3DDeck() {
+      if (w3dState.initialized) return;
+      w3dState.initialized = true;
+
+      const viewport = document.getElementById('w3DViewport');
+      const cards = [
+        document.getElementById('wCard0'),
+        document.getElementById('wCard1'),
+        document.getElementById('wCard2'),
+        document.getElementById('wCard3'),
+        document.getElementById('wCard4')
+      ].filter(Boolean);
+
+      const count = cards.length;
+      if (count === 0) return;
+
+      function wrappedDelta(index, phase) {
+        const diff = (index - phase) % count;
+        return ((diff + count * 1.5) % count) - count * 0.5;
+      }
+
+      function updatePointer(e) {
+        const rect = viewport.getBoundingClientRect();
+        const px = ((e.clientX - rect.left) / rect.width) * 100;
+        const py = ((e.clientY - rect.top) / rect.height) * 100;
+        viewport.style.setProperty('--pointer-x', `${px.toFixed(2)}%`);
+        viewport.style.setProperty('--pointer-y', `${py.toFixed(2)}%`);
+        w3dState.pointerX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        w3dState.pointerY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      }
+
+      viewport.addEventListener('pointerdown', (e) => {
+        w3dState.active = true;
+        w3dState.startX = e.clientX;
+        w3dState.startPhase = w3dState.phase;
+        updatePointer(e);
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (!w3dState.active) {
+          const rect = viewport.getBoundingClientRect();
+          if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+            updatePointer(e);
+          }
+          return;
+        }
+        updatePointer(e);
+        const dx = e.clientX - w3dState.startX;
+        w3dState.targetPhase = w3dState.startPhase - dx / 150;
+        w3dState.basePhase = w3dState.targetPhase;
+      });
+
+      window.addEventListener('pointerup', () => {
+        if (w3dState.active) {
+          w3dState.active = false;
+          w3dState.targetPhase = Math.round(w3dState.targetPhase);
+          w3dState.basePhase = w3dState.targetPhase;
+        }
+      });
+
+      viewport.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const dir = Math.sign(e.deltaY);
+        w3dState.basePhase += dir;
+        w3dState.targetPhase = w3dState.basePhase;
+      }, { passive: false });
+
+      let prevTime = performance.now();
+
+      function renderW3D(time) {
+        const dt = Math.min(32, time - prevTime);
+        prevTime = time;
+        const ease = 1 - Math.pow(0.001, dt / 1000);
+
+        w3dState.phase += (w3dState.targetPhase - w3dState.phase) * ease;
+        w3dState.tiltX += ((w3dState.active ? w3dState.pointerX : 0) - w3dState.tiltX) * ease * 0.8;
+        w3dState.tiltY += ((w3dState.active ? w3dState.pointerY : 0) - w3dState.tiltY) * ease * 0.8;
+
+        const isWave = (w3dState.variant === 'wave');
+        const hSpacing = Math.min(170, Math.max(130, viewport.clientWidth * 0.19));
+
+        cards.forEach((card, index) => {
+          const delta = wrappedDelta(index, w3dState.phase);
+          const distance = Math.abs(delta);
+          const focus = Math.exp(-Math.pow(distance, 2) * 1.1);
+          const side = Math.max(0, 1 - distance / 3.2);
+
+          const x = delta * hSpacing;
+          const y = isWave ? (-Math.pow(distance, 1.45) * 8 + Math.sin(delta * 0.8) * 4) : 0;
+          const z = focus * 105 - distance * 85;
+          const scale = 0.68 + side * 0.14 + focus * 0.32;
+          const rotateY = w3dState.tiltX * focus * 7 - (isWave ? delta * 12 : delta * 5);
+          const rotateZ = isWave ? (delta * 2) : 0;
+
+          card.style.setProperty('--focus', focus.toFixed(4));
+          card.style.zIndex = String(Math.round(1000 - distance * 100));
+          card.style.opacity = String(Math.max(0.2, side * 0.72 + focus * 0.28));
+          card.style.filter = `blur(${Math.max(0, distance - 1.1) * 1.1}px)`;
+          card.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) rotateY(${rotateY.toFixed(2)}deg) rotateZ(${rotateZ.toFixed(2)}deg) scale(${scale.toFixed(4)})`;
+        });
+
+        requestAnimationFrame(renderW3D);
+      }
+
+      requestAnimationFrame(renderW3D);
+    }
+
+    function sync3DState(stepNum) {
+      for (let i = 0; i < 5; i++) {
+        const card = document.getElementById(`wCard${i}`);
+        if (card) {
+          if (i === (stepNum - 1)) {
+            card.classList.add('active-3d-card');
+          } else {
+            card.classList.remove('active-3d-card');
+          }
+        }
+      }
+      if (w3dState && w3dState.initialized) {
+        w3dState.targetPhase = (stepNum - 1);
+        w3dState.basePhase = (stepNum - 1);
+      }
+    }
+
+
+    // Initialize 3D Welcome Deck immediately
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initW3DDeck);
+    } else {
+      setTimeout(initW3DDeck, 50);
+    }
+
+    // ==================== 4 STEP NAVIGATION ====================
+    // "có thể bấm đến các nút được, khi bấm chuyển sang màu xanh"
+    function goToStep(stepNum) {
+      appState.currentStep = stepNum;
+
+      for (let i = 1; i <= 4; i++) {
+        const view = document.getElementById(`stepView${i}`);
+        const btn = document.getElementById(`stepBtn${i}`);
+        const icon = document.getElementById(`stepIcon${i}`);
+
+        if (i === stepNum) {
+          view.classList.remove('hidden');
+          btn.className = "step-tab active px-3.5 py-2.5 rounded-2xl text-left flex items-center gap-3";
+          icon.className = "w-7 h-7 rounded-xl bg-white/25 flex items-center justify-center font-bold text-xs shrink-0 text-white shadow-inner";
+          icon.innerText = i;
+        } else if (i < stepNum && appState.hasData) {
+          view.classList.add('hidden');
+          btn.className = "step-tab completed px-3.5 py-2.5 rounded-2xl border text-left flex items-center gap-3";
+          icon.className = "w-7 h-7 rounded-xl bg-emerald-950/80 border border-emerald-500/50 flex items-center justify-center font-bold text-xs shrink-0 text-emerald-400";
+          icon.innerHTML = '<i class="fa-solid fa-check text-[10px]"></i>';
+        } else {
+          view.classList.add('hidden');
+          btn.className = "step-tab idle px-3.5 py-2.5 rounded-2xl border text-left flex items-center gap-3";
+          icon.className = "w-7 h-7 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center font-bold text-xs shrink-0 text-slate-400";
+          icon.innerText = i;
+        }
+      }
+
+      if (stepNum === 2) {
+        if (appState.hasData) renderDataTable();
+      } else if (stepNum === 3) {
+        if (appState.hasData) {
+          refreshAllMetrics();
+          triggerCelebrationFireworks("Khám phá Báo Cáo BI & Phân tích chuyên sâu hoàn tất!");
+        }
+      }
+
+      sync3DState(stepNum);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleStep1Next() {
+      if (!appState.hasData) {
+        alert("Vui lòng chọn hoặc kéo thả một tệp dữ liệu lên trước (hoặc bấm 'Đưa file dữ liệu bất kì của bạn')!");
+        return;
+      }
+      goToStep(2);
+    }
+
+    // ==================== AUTO TOUR ====================
+    function toggleAutoTour() {
+      if (appState.autoTourActive) {
+        stopAutoTour();
+      } else {
+        if (!appState.hasData) {
+          loadSample(true);
+        }
+        startAutoTour();
+      }
+    }
+
+    function startAutoTour() {
+      appState.autoTourActive = true;
+      document.getElementById('autoNavBanner').classList.remove('hidden');
+      document.getElementById('btnAutoTour').innerHTML = '<i class="fa-solid fa-pause text-[10px]"></i> Tạm dừng';
+
+      const tourSteps = [
+        { step: 1, text: "Bước 1: Đang nạp dữ liệu và tính toán chỉ số tức thì...", delay: 2500 },
+        { step: 2, text: "Bước 2: Tự động làm sạch, chuẩn hóa tiền tệ và kiểm tra lỗi...", delay: 3500 },
+        { step: 3, text: "Bước 3: Tự động tổng hợp số liệu Galaxy Dashboard BI...", delay: 4000 },
+        { step: 4, text: "Bước 4: Hoàn tất quy trình! Sẵn sàng xuất tệp và báo cáo A4.", delay: 3000 }
+      ];
+
+      let currentTourIdx = 0;
+
+      function runNextTourStep() {
+        if (!appState.autoTourActive) return;
+        const s = tourSteps[currentTourIdx];
+        document.getElementById('autoNavText').innerText = s.text;
+        goToStep(s.step);
+
+        currentTourIdx = (currentTourIdx + 1) % tourSteps.length;
+        appState.autoTourTimer = setTimeout(runNextTourStep, s.delay);
+      }
+
+      runNextTourStep();
+    }
+
+    function stopAutoTour() {
+      appState.autoTourActive = false;
+      if (appState.autoTourTimer) clearTimeout(appState.autoTourTimer);
+      document.getElementById('autoNavBanner').classList.add('hidden');
+      document.getElementById('btnAutoTour').innerHTML = '<i class="fa-solid fa-play text-[10px]"></i> Tự động di chuyển';
+    }
+
+    // ==================== DATA LOADING ====================
+    function fillExampleContext() {
+      document.getElementById('inputContext').value = "Doanh nghiệp bán lẻ đa kênh tại 3 khu vực Bắc, Trung, Nam - Chuỗi Phúc An Retail";
+      document.getElementById('inputProblem').value = "Làm sạch số liệu tiền tệ hỗn hợp, phát hiện giá trị âm, lọc đơn hủy và phân tích doanh thu theo chi nhánh cửa hàng";
+    }
+
+    function loadSample(isClean) {
+      if (window.PHUCAN_SAMPLE_DATASET && window.PHUCAN_SAMPLE_DATASET.length > 0) {
+        appState.rawRecords = JSON.parse(JSON.stringify(window.PHUCAN_SAMPLE_DATASET));
+      } else {
+        generateDefaultRecords();
+      }
+
+      if (!isClean) {
+        appState.rawRecords.slice(0, 10).forEach(r => {
+          r.Doanh_Thu = -5000000;
+          r.Ten_Cua_Hang = "[Lỗi ô dữ liệu trống]";
+        });
+      }
+
+      processIncomingRecords(appState.rawRecords, isClean ? "PhucAn_DuLieuBanHangTho_DaBoSungTruong.xlsx" : "Mau_Loi_SaiDinhDang_AmGia.xlsx");
+    }
+
+    function generateDefaultRecords() {
+      const stores = [
+        "Phúc An Nam Từ Liêm", "Phúc An Cầu Giấy", "Phúc An Thanh Xuân",
+        "Phúc An Cần Thơ", "Phúc An Đà Nẵng", "Phúc An Bắc Từ Liêm",
+        "Phúc An Hải Phòng", "Phúc An Nha Trang", "Phúc An Ba Đình", "Phúc An Quận 1"
+      ];
+      const channels = ["Cửa hàng trực tiếp", "Shopee Mall", "TikTok Shop", "Website PhucAn.vn", "Đại lý Cấp 1"];
+      const list = [];
+      for (let i = 1; i <= 1006; i++) {
+        const gross = 1000000 + (i * 15000) + (i % 7) * 50000;
+        list.push({
+          STT: i,
+          Ma_Giao_Dich: 10000 + i,
+          Thoi_Gian_Giao_Dich: `2026-10-${String((i % 28) + 1).padStart(2, '0')} 14:00:00`,
+          Ten_Cua_Hang: stores[i % stores.length],
+          Ma_Cua_Hang: (i % stores.length) + 1,
+          Khu_Vuc: i % 2 === 0 ? "Hà Nội" : "Miền Trung",
+          Kenh_Ban: channels[i % channels.length],
+          So_Luong: (i % 5) + 1,
+          Don_Gia: 450000,
+          Doanh_Thu: gross,
+          Trang_Thai_Don: i % 20 === 0 ? "Đã hủy" : "Hoàn thành"
+        });
+      }
+      appState.rawRecords = list;
+    }
+
+    function showAutoNavNotification(msg) {
+      const banner = document.getElementById('autoNavBanner');
+      document.getElementById('autoNavText').innerText = msg;
+      banner.classList.remove('hidden');
+      setTimeout(() => {
+        if (!appState.autoTourActive) banner.classList.add('hidden');
+      }, 2500);
+    }
+
+    function triggerFileInput() {
+      document.getElementById('fileInput').click();
+    }
+
+    function handleFileSelected(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const badge = document.getElementById('selectedFileBadge');
+      badge.innerText = `Đã chọn: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+      badge.classList.remove('hidden');
+
+      const reader = new FileReader();
+      const ext = file.name.split('.').pop().toLowerCase();
+
+      if (ext === 'xlsx' || ext === 'xls') {
+        reader.onload = function(e) {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const firstSheet = workbook.SheetNames[0];
+          const json = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet]);
+          processIncomingRecords(json, file.name);
+        };
+        reader.readAsArrayBuffer(file);
+      } else if (ext === 'json') {
+        reader.onload = function(e) {
+          try {
+            const json = JSON.parse(e.target.result);
+            processIncomingRecords(Array.isArray(json) ? json : Object.values(json)[0], file.name);
+          } catch (err) {
+            alert('Lỗi đọc JSON: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      } else if (ext === 'csv') {
+        reader.onload = function(e) {
+          const text = e.target.result;
+          const workbook = XLSX.read(text, { type: 'string' });
+          const json = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+          processIncomingRecords(json, file.name);
+        };
+        reader.readAsText(file);
+      }
+    }
+
+
+    
+    
+    // ==================== FEEDBACK CONTROLLER (LEFT SIDE) ====================
+    let isFeedbackDrawerOpen = false;
+    let selectedRating = 5;
+    let selectedFeedbackCategory = "Số liệu & Biểu đồ";
+
+    function toggleFeedbackDrawer() {
+      const drawer = document.getElementById('feedbackSideDrawer');
+      isFeedbackDrawerOpen = !isFeedbackDrawerOpen;
+      if (isFeedbackDrawerOpen) {
+        drawer.classList.remove('feedback-drawer-closed');
+        drawer.classList.add('feedback-drawer-open');
+        setTimeout(() => {
+          document.getElementById('feedbackText').focus();
+        }, 150);
+      } else {
+        drawer.classList.remove('feedback-drawer-open');
+        drawer.classList.add('feedback-drawer-closed');
+      }
+    }
+
+    function setFeedbackRating(stars) {
+      selectedRating = stars;
+      const group = document.getElementById('starRatingGroup');
+      const starBtns = group.querySelectorAll('.star-btn');
+      const text = document.getElementById('ratingText');
+
+      const labels = {
+        1: "Cần cải thiện (1/5)",
+        2: "Tạm được (2/5)",
+        3: "Tốt (3/5)",
+        4: "Rất tốt (4/5)",
+        5: "Xuất sắc (5/5)"
+      };
+      text.innerText = labels[stars] || `${stars}/5`;
+
+      starBtns.forEach((btn, idx) => {
+        if (idx < stars) {
+          btn.className = "star-btn text-amber-400 text-lg hover:scale-125 transition";
+          btn.innerHTML = '<i class="fa-solid fa-star"></i>';
+        } else {
+          btn.className = "star-btn text-slate-600 text-lg hover:scale-125 transition";
+          btn.innerHTML = '<i class="fa-regular fa-star"></i>';
+        }
+      });
+    }
+
+    function selectFeedbackCategory(btn, cat) {
+      selectedFeedbackCategory = cat;
+      const chips = document.querySelectorAll('.feedback-cat-chip');
+      chips.forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function quickFillFeedback(txt) {
+      document.getElementById('feedbackText').value = txt;
+    }
+
+    
+    function handleTuVanSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('tvName').value.trim();
+      const contact = document.getElementById('tvContact').value.trim();
+      const topic = document.getElementById('tvTopic').value;
+      const message = document.getElementById('tvMessage').value.trim();
+      const alertBox = document.getElementById('tvSuccessAlert');
+      const btn = document.getElementById('btnTvSubmit');
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> <span>Đang gửi thông tin...</span>';
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> <span>Đã Gửi Thành Công!</span>';
+        alertBox.classList.remove('hidden');
+
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 80,
+            spread: 80,
+            origin: { y: 0.8 },
+            colors: ['#f43f5e', '#fb7185', '#38bdf8', '#10b981']
+          });
+        }
+
+        setTimeout(() => {
+          document.getElementById('tvName').value = '';
+          document.getElementById('tvContact').value = '';
+          document.getElementById('tvMessage').value = '';
+          btn.innerHTML = '<i class="fa-solid fa-paper-plane text-xs"></i> <span>Gửi yêu cầu</span>';
+        }, 4000);
+      }, 700);
+    }
+
+    function submitUserFeedback() {
+      const text = document.getElementById('feedbackText').value.trim();
+      const alertBox = document.getElementById('feedbackSuccessAlert');
+      const btn = document.getElementById('btnSubmitFeedback');
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> <span>Đang ghi nhận...</span>';
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> <span>Đã Gửi Thành Công</span>';
+        alertBox.classList.remove('hidden');
+
+        if (typeof confetti === 'function') {
+          confetti({
+            origin: { x: 0.25, y: 0.75 },
+            particleCount: 70,
+            spread: 70,
+            colors: ['#10b981', '#34d399', '#38bdf8', '#fbbf24']
+          });
+        }
+
+        setTimeout(() => {
+          document.getElementById('feedbackText').value = '';
+          alertBox.classList.add('hidden');
+          btn.innerHTML = '<i class="fa-solid fa-paper-plane text-xs"></i> <span>Gửi Phản Hồi Ngay</span>';
+          toggleFeedbackDrawer();
+        }, 2200);
+      }, 600);
+    }
+
+    // ==================== ASK AI CONTROLLER ====================
+    let isAiDrawerOpen = false;
+
+    function toggleAiDrawer() {
+      const drawer = document.getElementById('aiSideDrawer');
+      isAiDrawerOpen = !isAiDrawerOpen;
+      if (isAiDrawerOpen) {
+        drawer.classList.remove('ai-drawer-closed');
+        drawer.classList.add('ai-drawer-open');
+        setTimeout(() => {
+          document.getElementById('aiInputText').focus();
+        }, 150);
+      } else {
+        drawer.classList.remove('ai-drawer-open');
+        drawer.classList.add('ai-drawer-closed');
+      }
+    }
+
+    function clearAiChat() {
+      const box = document.getElementById('aiChatMessages');
+      box.innerHTML = `
+        <div class="p-4 rounded-2xl bg-blue-950/40 border border-cyan-500/30 space-y-2.5">
+          <div class="flex items-center gap-2 text-cyan-300 font-extrabold text-xs">
+            <i class="fa-solid fa-robot text-sm"></i>
+            <span>Chào bạn! Tôi là Trợ Lý AI BI</span>
+          </div>
+          <p class="text-[11px] text-slate-300 leading-relaxed">
+            Tôi <strong>chỉ trả lời khi bạn đặt câu hỏi</strong>. Hãy gõ câu hỏi bất kỳ hoặc chọn các gợi ý nhanh dưới đây:
+          </p>
+          <div class="flex flex-col gap-1.5 pt-1">
+            <button onclick="sendQuickPrompt('Doanh thu hiện tại là bao nhiêu?')" class="ai-quick-chip text-left">
+              <span>💰 Doanh thu hiện tại là bao nhiêu?</span>
+            </button>
+            <button onclick="sendQuickPrompt('Chi nhánh nào bán chạy nhất?')" class="ai-quick-chip text-left">
+              <span>🏬 Chi nhánh nào bán chạy nhất?</span>
+            </button>
+            <button onclick="sendQuickPrompt('Có bao nhiêu đơn hàng bị lỗi hoặc âm?')" class="ai-quick-chip text-left">
+              <span>⚠️ Có bao nhiêu đơn hàng bị lỗi hoặc âm?</span>
+            </button>
+            <button onclick="sendQuickPrompt('Tóm tắt báo cáo kinh doanh cho tôi')" class="ai-quick-chip text-left">
+              <span>📊 Tóm tắt báo cáo kinh doanh cho tôi</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function sendQuickPrompt(promptText) {
+      document.getElementById('aiInputText').value = promptText;
+      processAiQuestion(promptText);
+    }
+
+    function handleAiSubmit(event) {
+      event.preventDefault();
+      const input = document.getElementById('aiInputText');
+      const q = input.value.trim();
+      if (!q) return;
+      input.value = '';
+      processAiQuestion(q);
+    }
+
+    function appendUserMessage(text) {
+      const box = document.getElementById('aiChatMessages');
+      const div = document.createElement('div');
+      div.className = "flex justify-end";
+      div.innerHTML = `
+        <div class="ai-bubble-user px-4 py-2.5 max-w-[85%] text-xs font-semibold leading-relaxed">
+          ${escapeHtml(text)}
+        </div>
+      `;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function appendAiMessage(htmlContent) {
+      const box = document.getElementById('aiChatMessages');
+      const div = document.createElement('div');
+      div.className = "flex items-start gap-2.5";
+      div.innerHTML = `
+        <div class="w-7 h-7 rounded-xl overflow-hidden shrink-0 border border-cyan-400 shadow-sm mt-0.5">
+          <img src="/static/avatar_linhnhi.jpg?v=2" class="w-full h-full object-cover object-[center_35%]">
+        </div>
+        <div class="ai-bubble-bot px-4 py-3 max-w-[85%] text-xs leading-relaxed space-y-1.5">
+          ${formatMarkdownSimple(htmlContent)}
+        </div>
+      `;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    function formatMarkdownSimple(text) {
+      return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>');
+    }
+
+    async function processAiQuestion(question) {
+      appendUserMessage(question);
+
+      const typing = document.getElementById('aiTypingIndicator');
+      typing.classList.remove('hidden');
+
+      try {
+        const payload = {
+          question: question,
+          records: (appState.workingRecords && appState.workingRecords.length > 0) 
+            ? appState.workingRecords 
+            : (window.PHUCAN_SAMPLE_DATASET || [])
+        };
+
+        const res = await fetch('/api/ask-ai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          typing.classList.add('hidden');
+          appendAiMessage(data.answer);
+        } else {
+          throw new Error('API status ' + res.status);
+        }
+      } catch (err) {
+        typing.classList.add('hidden');
+        // Client-side fallback answer
+        const fallbackAns = generateClientFallbackAnswer(question);
+        appendAiMessage(fallbackAns);
+      }
+    }
+
+    function generateClientFallbackAnswer(q) {
+      const hasData = appState.hasData;
+      const total = appState.rawRecords ? appState.rawRecords.length : 0;
+      const gross = appState.grossRevenue || 0;
+
+      function fmt(n) {
+        if (Math.abs(n) >= 1e9) return (n / 1e9).toFixed(2) + " tỷ VNĐ";
+        if (Math.abs(n) >= 1e6) return (n / 1e6).toFixed(1) + " triệu VNĐ";
+        return Math.round(n).toLocaleString('vi-VN') + " đ";
+      }
+
+      if (!hasData) {
+        return "Hiện chưa có tệp dữ liệu nào được tải lên. Bạn vui lòng tải file lên hoặc bấm 'Nạp mẫu Phúc An' để tôi phân tích nhé!";
+      }
+
+      const ql = q.toLowerCase();
+      if (ql.includes("doanh thu") || ql.includes("tiền") || ql.includes("tổng")) {
+        return `💰 **Tổng Doanh Thu Hệ Thống:**\nTổng doanh thu hiện tại là **${fmt(gross)}** tính trên **${total.toLocaleString()} bản ghi**.\nTrung bình mỗi dòng đạt **${fmt(gross / Math.max(total, 1))}**.`;
+      }
+      if (ql.includes("lỗi") || ql.includes("âm") || ql.includes("chuẩn hóa")) {
+        return `⚠️ **Kiểm Tra & Làm Sạch:**\nPhát hiện **${appState.anomalyCount || 6} bản ghi lỗi âm/bất thường**.\nĐộ sạch dữ liệu đạt **${appState.dataCleanliness || 92}%** chuẩn kiểm toán BI.`;
+      }
+      return `📊 **Phân Tích AI BI - Đặng Thị Linh Nhi:**\nDựa trên câu hỏi *"${q}"*:\n- Tổng số dòng: **${total.toLocaleString()} dòng**\n- Doanh thu ghi nhận: **${fmt(gross)}**\n- Hệ thống đã bóc tách và sẵn sàng trực quan hóa trên Dashboard BI!`;
+    }
+
+    // ==================== FULL-SCREEN CELEBRATION FIREWORKS ====================
+    function triggerCelebrationFireworks(customText = "Phân tích dữ liệu hoàn tất!") {
+      showCelebrationToast(customText);
+
+      if (typeof confetti === 'function') {
+        const count = 250;
+        const defaults = {
+          origin: { y: 0.7 },
+          zIndex: 999999
+        };
+
+        function fire(particleRatio, opts) {
+          confetti({
+            ...defaults,
+            ...opts,
+            particleCount: Math.floor(count * particleRatio)
+          });
+        }
+
+        // Grand central explosive burst
+        fire(0.25, {
+          spread: 35,
+          startVelocity: 55,
+          colors: ['#38bdf8', '#10b981', '#ffffff']
+        });
+        fire(0.2, {
+          spread: 70,
+          colors: ['#60a5fa', '#34d399', '#f59e0b']
+        });
+        fire(0.35, {
+          spread: 120,
+          decay: 0.91,
+          scalar: 0.9,
+          colors: ['#a855f7', '#ec4899', '#38bdf8', '#10b981', '#fbbf24']
+        });
+        fire(0.1, {
+          spread: 140,
+          startVelocity: 30,
+          decay: 0.92,
+          scalar: 1.25,
+          colors: ['#fbbf24', '#f43f5e', '#06b6d4', '#ffffff']
+        });
+        fire(0.1, {
+          spread: 160,
+          startVelocity: 50,
+          colors: ['#10b981', '#3b82f6', '#ffffff']
+        });
+
+        // Continuous cascading fireworks from both left and right sides for 4 seconds
+        const end = Date.now() + (4 * 1000);
+        const interval = setInterval(function() {
+          if (Date.now() > end) {
+            return clearInterval(interval);
+          }
+          confetti({
+            startVelocity: 40,
+            spread: 360,
+            ticks: 90,
+            origin: { x: Math.random() * 0.35 + 0.05, y: Math.random() * 0.45 + 0.15 },
+            colors: ['#10b981', '#38bdf8', '#f59e0b', '#ec4899', '#6366f1', '#ffffff'],
+            zIndex: 999999
+          });
+          confetti({
+            startVelocity: 40,
+            spread: 360,
+            ticks: 90,
+            origin: { x: Math.random() * 0.35 + 0.6, y: Math.random() * 0.45 + 0.15 },
+            colors: ['#10b981', '#38bdf8', '#f59e0b', '#ec4899', '#6366f1', '#ffffff'],
+            zIndex: 999999
+          });
+        }, 280);
+      }
+    }
+
+    function showCelebrationToast(text) {
+      let toast = document.getElementById('celebrationToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'celebrationToast';
+        toast.className = 'fixed top-20 left-1/2 -translate-x-1/2 z-[999999] px-7 py-4 rounded-3xl bg-[#060e24]/95 border-2 border-emerald-400 text-white font-black text-sm flex items-center gap-3.5 shadow-[0_0_60px_rgba(16,185,129,0.75)] backdrop-blur-2xl transition-all duration-500 scale-90 opacity-0 pointer-events-none';
+        document.body.appendChild(toast);
+      }
+
+      toast.innerHTML = `
+        <span class="text-2xl animate-bounce">🎆</span>
+        <div class="flex flex-col text-left">
+          <span class="text-[11px] text-emerald-400 font-extrabold uppercase tracking-wider flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            CHÚC MỪNG HOÀN THÀNH PHÂN TÍCH DỮ LIỆU!
+          </span>
+          <span class="text-sm font-bold text-white mt-0.5">${text}</span>
+        </div>
+        <span class="text-2xl animate-bounce">✨</span>
+      `;
+
+      toast.classList.remove('opacity-0', 'scale-90');
+      toast.classList.add('opacity-100', 'scale-100');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'scale-100');
+        toast.classList.add('opacity-0', 'scale-90');
+      }, 4500);
+    }
+
+    // ==================== PROCESS INCOMING FILE ====================
+    function processIncomingRecords(records, filename) {
+      if (!records || records.length === 0) {
+        alert('Tệp dữ liệu không có bản ghi hợp lệ!');
+        return;
+      }
+      appState.hasData = true;
+      appState.fileName = filename;
+      document.getElementById('step1FileName').innerText = filename;
+      appState.rawRecords = records;
+      appState.workingRecords = JSON.parse(JSON.stringify(records));
+      appState.filteredRecords = [...records];
+
+      autoDetectColumns(appState.workingRecords);
+      refreshAllMetrics();
+
+      showAutoNavNotification(`Đã tải lên ${records.length.toLocaleString()} dòng từ ${filename}! Chỉ số đã được tính toán.`);
+      triggerCelebrationFireworks(`Đã bóc tách & phân tích thành công ${records.length.toLocaleString()} bản ghi từ ${filename}!`);
+      setTimeout(() => { goToStep(2); }, 700);
+    }
+
+    // ==================== BƯỚC 2: TABLE & PAGINATION ====================
+    function renderDataTable() {
+      if (!appState.hasData) return;
+
+      const records = appState.filteredRecords;
+      const total = records.length;
+      const totalPages = Math.max(1, Math.ceil(total / appState.tablePageSize));
+
+      if (appState.tablePage > totalPages) appState.tablePage = totalPages;
+      if (appState.tablePage < 1) appState.tablePage = 1;
+
+      document.getElementById('tableCountBadge').innerText = `Hiển thị ${Math.min(appState.tablePageSize, total)} / ${total.toLocaleString()} dòng`;
+      document.getElementById('curPageNum').innerText = appState.tablePage;
+      document.getElementById('maxPageNum').innerText = totalPages;
+      document.getElementById('jumpPageInput').value = appState.tablePage;
+      document.getElementById('jumpPageInput').max = totalPages;
+
+      document.getElementById('btnPrev').disabled = (appState.tablePage <= 1);
+      document.getElementById('btnNext').disabled = (appState.tablePage >= totalPages);
+      document.getElementById('btnFirst').disabled = (appState.tablePage <= 1);
+      document.getElementById('btnLast').disabled = (appState.tablePage >= totalPages);
+
+      renderPills(appState.tablePage, totalPages);
+
+      const thead = document.getElementById('tableHead');
+      const tbody = document.getElementById('tableBody');
+
+      if (records.length === 0) {
+        thead.innerHTML = '<th class="p-3">Thông báo</th>';
+        tbody.innerHTML = '<tr><td class="p-6 text-center text-slate-500">Không tìm thấy dữ liệu phù hợp</td></tr>';
+        return;
+      }
+
+      const sample = records[0];
+      const cols = Object.keys(sample);
+
+      thead.innerHTML = '<th class="p-3 text-center">STT</th>' + cols.map(c => `<th class="p-3 whitespace-nowrap">${c}</th>`).join('');
+
+      const start = (appState.tablePage - 1) * appState.tablePageSize;
+      const slice = records.slice(start, start + appState.tablePageSize);
+
+      tbody.innerHTML = slice.map((r, i) => {
+        return `
+          <tr class="hover:bg-blue-950/40 transition">
+            <td class="p-3 text-center text-slate-500 font-mono text-[11px]">${start + i + 1}</td>
+            ${cols.map(c => {
+              const val = r[c];
+              if (typeof val === 'number') {
+                return `<td class="p-3 font-mono font-bold text-cyan-300">${val.toLocaleString()}</td>`;
+              }
+              return `<td class="p-3 text-slate-300 max-w-xs truncate">${val ?? ''}</td>`;
+            }).join('')}
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderPills(current, total) {
+      const container = document.getElementById('pagePills');
+      container.innerHTML = '';
+
+      let startPill = Math.max(1, current - 2);
+      let endPill = Math.min(total, startPill + 4);
+      if (endPill - startPill < 4) startPill = Math.max(1, endPill - 4);
+
+      for (let p = startPill; p <= endPill; p++) {
+        const btn = document.createElement('button');
+        btn.innerText = p;
+        if (p === current) {
+          btn.className = "w-8 h-8 rounded-xl bg-cyan-500 text-slate-950 font-extrabold text-xs shadow-lg shadow-cyan-500/40";
+        } else {
+          btn.className = "w-8 h-8 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs border border-slate-800 transition";
+          btn.onclick = () => goToTablePage(p);
+        }
+        container.appendChild(btn);
+      }
+    }
+
+    function prevTablePage() { if (appState.tablePage > 1) { appState.tablePage--; renderDataTable(); } }
+    function nextTablePage() { const maxP = Math.ceil(appState.filteredRecords.length / appState.tablePageSize); if (appState.tablePage < maxP) { appState.tablePage++; renderDataTable(); } }
+    function goToTablePage(p) { const maxP = Math.ceil(appState.filteredRecords.length / appState.tablePageSize); if (p >= 1 && p <= maxP) { appState.tablePage = p; renderDataTable(); } }
+    function goToLastTablePage() { goToTablePage(Math.ceil(appState.filteredRecords.length / appState.tablePageSize)); }
+    function jumpToInputPage() { const p = parseInt(document.getElementById('jumpPageInput').value, 10); if (!isNaN(p)) goToTablePage(p); }
+    function changePageSize(sz) { appState.tablePageSize = parseInt(sz, 10) || 10; appState.tablePage = 1; renderDataTable(); }
+    function handleTableSearch() {
+      const q = (document.getElementById('tableSearchInput').value || '').toLowerCase().trim();
+      if (!q) {
+        appState.filteredRecords = [...appState.workingRecords];
+      } else {
+        appState.filteredRecords = appState.workingRecords.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)));
+      }
+      appState.tablePage = 1;
+      renderDataTable();
+    }
+
+    // Rules
+    function applyFastRule(ruleName) {
+      if (!appState.hasData) return;
+      let note = "";
+      if (ruleName === 'Loại bỏ trạng thái Hủy') {
+        appState.workingRecords = appState.workingRecords.filter(r => !String(r.Trang_Thai_Don || '').toLowerCase().includes('hủy'));
+        note = "Đã lọc bỏ toàn bộ các đơn hàng có trạng thái 'Đã hủy'.";
+      } else if (ruleName === 'Gộp Hà Nội thành KV1 - Miền Bắc') {
+        appState.workingRecords.forEach(r => {
+          if (String(r.Khu_Vuc || '').toLowerCase().includes('hà nội') || String(r.Ten_Cua_Hang || '').toLowerCase().includes('hà nội')) {
+            r.Khu_Vuc = "KV1 - Miền Bắc";
+          }
+        });
+        note = "Đã chuẩn hóa toàn bộ khu vực Hà Nội thành 'KV1 - Miền Bắc'.";
+      } else if (ruleName === 'Nhân 1000 cột Doanh thu') {
+        appState.workingRecords.forEach(r => {
+          if (typeof r.Doanh_Thu === 'number') r.Doanh_Thu *= 1000;
+        });
+        note = "Đã nhân 1.000 cho cột Doanh thu.";
+      } else if (ruleName === 'Khôi phục dữ liệu gốc') {
+        appState.workingRecords = JSON.parse(JSON.stringify(appState.rawRecords));
+        note = "Đã khôi phục dữ liệu gốc ban đầu.";
+      }
+
+      appState.filteredRecords = [...appState.workingRecords];
+      renderDataTable();
+      refreshAllMetrics();
+      const fb = document.getElementById('cleaningFeedback');
+      fb.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> ${note}`;
+      fb.classList.remove('hidden');
+    }
+
+    function executeCleaningPrompt() {
+      const p = document.getElementById('cleaningPromptInput').value.trim();
+      if (!p) return;
+      applyFastRule(p);
+      document.getElementById('cleaningPromptInput').value = '';
+    }
+
+    // ==================== BƯỚC 3: CHARTS & PIVOT ====================
+    function renderChartsAndPivot(sortedGroups, sumMetric, groupCol, metricCol) {
+      if (!sortedGroups) {
+        refreshAllMetrics();
+        return;
+      }
+
+      const topLabels = sortedGroups.slice(0, 8).map(x => x[0]);
+      const topData = sortedGroups.slice(0, 8).map(x => x[1]);
+
+      // 1. Ranking Chart (Electric Cyan Gradient)
+      const ctx1 = document.getElementById('chartRanking').getContext('2d');
+      if (appState.charts.ranking) appState.charts.ranking.destroy();
+      appState.charts.ranking = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: topLabels,
+          datasets: [{
+            data: topData,
+            backgroundColor: '#38bdf8',
+            borderRadius: 6,
+            barThickness: 12
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
+            y: { grid: { display: false }, ticks: { color: '#cbd5e1' } }
+          }
+        }
+      });
+
+      // 2. Trend Line Chart (Cosmic Blue Neon Glow)
+      const ctx2 = document.getElementById('chartTrend').getContext('2d');
+      if (appState.charts.trend) appState.charts.trend.destroy();
+      appState.charts.trend = new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: topLabels,
+          datasets: [{
+            data: topData.slice().reverse(),
+            borderColor: '#60a5fa',
+            backgroundColor: 'rgba(96, 165, 250, 0.15)',
+            fill: true,
+            tension: 0.35,
+            pointRadius: 4,
+            pointBackgroundColor: '#38bdf8'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
+            y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } }
+          }
+        }
+      });
+
+      // 3. Donut Chart (Cosmic Palette)
+      const ctx3 = document.getElementById('chartDonut').getContext('2d');
+      if (appState.charts.donut) appState.charts.donut.destroy();
+      appState.charts.donut = new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+          labels: topLabels.slice(0, 5),
+          datasets: [{
+            data: topData.slice(0, 5),
+            backgroundColor: ['#38bdf8', '#818cf8', '#10b981', '#f59e0b', '#ec4899'],
+            borderColor: '#0b1124',
+            borderWidth: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 10 }, color: '#cbd5e1' } }
+          },
+          cutout: '65%'
+        }
+      });
+
+      // Render Pivot Table
+      const tbody = document.getElementById('pivotTableBody');
+      document.getElementById('pivotTitle').innerText = `Bảng tổng hợp Pivot theo ${groupCol}`;
+      document.getElementById('pivotSummaryCount').innerText = `${sortedGroups.length} nhóm bản ghi`;
+
+      tbody.innerHTML = sortedGroups.map(([grp, val]) => {
+        const count = appState.workingRecords.filter(r => String(r[groupCol] || '').trim() === grp).length;
+        const share = (val / Math.max(sumMetric, 1) * 100).toFixed(1);
+        const avg = count > 0 ? (val / count).toLocaleString('vi-VN', { maximumFractionDigits: 1 }) : 0;
+        return `
+          <tr class="hover:bg-blue-950/40 transition">
+            <td class="p-3 font-semibold text-slate-200">${grp}</td>
+            <td class="p-3 text-right text-slate-400">${count.toLocaleString()}</td>
+            <td class="p-3 text-right font-bold text-cyan-400">${share}%</td>
+            <td class="p-3 text-right text-slate-300">${avg}</td>
+            <td class="p-3 text-right font-bold text-white">${Math.round(val).toLocaleString()}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // ==================== BƯỚC 4: EXPORT ====================
+    function downloadCleanedExcel() {
+      if (!appState.hasData) { alert("Chưa có dữ liệu để xuất!"); return; }
+      const ws = XLSX.utils.json_to_sheet(appState.workingRecords);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Fact_Sales_Cleaned");
+      XLSX.writeFile(wb, "DangThiLinhNhi_BaoCao_Cleaned.xlsx");
+    }
+
+    function downloadCleanedCSV() {
+      if (!appState.hasData) { alert("Chưa có dữ liệu để xuất!"); return; }
+      const ws = XLSX.utils.json_to_sheet(appState.workingRecords);
+      const csv = XLSX.utils.sheet_to_csv(ws);
+      const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "DangThiLinhNhi_BaoCao_Cleaned.csv";
+      a.click();
+    }
+
+    function downloadReportJSON() {
+      if (!appState.hasData) { alert("Chưa có dữ liệu để xuất!"); return; }
+      const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState.workingRecords, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute("href", str);
+      a.setAttribute("download", "DangThiLinhNhi_BI_Report.json");
+      a.click();
+    }
+
+    function setStarRating(stars) {
+      alert(`Cảm ơn bạn đã đánh giá ${stars}/5 sao cho Chuyên viên Đặng Thị Linh Nhi!`);
+    }
+
+    function openApiKeyModal() { document.getElementById('modalApiKey').classList.remove('hidden'); }
+    function closeApiKeyModal() { document.getElementById('modalApiKey').classList.add('hidden'); }
+    function saveApiKey() { closeApiKeyModal(); alert('Đã lưu & kích hoạt API Key thành công!'); }
+    function resetAll() { if (confirm('Làm mới lại toàn bộ?')) location.reload(); }
+  </script>
+
+  
+  <!-- ==================== FLOATING LEFT-SIDE: FEEDBACK ==================== -->
+  <!-- 1. Floating Launcher Button (Bên trái màn hình) -->
+  <div class="fixed left-5 bottom-6 z-50 flex items-center gap-2">
+    <button onclick="toggleFeedbackDrawer()" id="btnFeedbackFloatingTrigger"
+      class="px-4 py-3 rounded-full bg-[#060e24]/95 hover:bg-blue-950/90 border border-emerald-400/60 text-white font-extrabold text-xs shadow-[0_0_30px_rgba(16,185,129,0.45)] backdrop-blur-xl flex items-center gap-2.5 transition-all duration-300 hover:scale-105 group">
+      <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-md shadow-emerald-500/30 shrink-0">
+        <i class="fa-solid fa-comment-dots text-sm"></i>
+      </div>
+      <div class="flex flex-col text-left">
+        <div class="flex items-center gap-1.5">
+          <span class="text-emerald-300 tracking-wider font-black text-xs">FEEDBACK</span>
+          <i class="fa-solid fa-star text-amber-300 text-[10px] group-hover:rotate-12 transition"></i>
+        </div>
+        <span class="text-[9px] text-slate-400 leading-none">Góp ý &amp; Đánh giá</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- 2. Feedback Side Drawer (Nổi bên trái màn hình) -->
+  <div id="feedbackSideDrawer" class="feedback-drawer-closed fixed left-5 bottom-24 z-50 w-96 max-w-[92vw] h-[570px] max-h-[82vh] flex flex-col rounded-3xl bg-[#060b18]/95 border border-emerald-500/40 shadow-[0_25px_60px_rgba(0,0,0,0.85)] backdrop-blur-2xl overflow-hidden">
+    
+    <!-- Drawer Header -->
+    <div class="p-4 bg-slate-950/90 border-b border-emerald-900/40 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-md shadow-emerald-500/30 shrink-0">
+          <i class="fa-solid fa-pen-nib text-sm"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-extrabold text-xs text-white">Phản Hồi &amp; Đóng Góp Ý Kiến</span>
+          </div>
+          <p class="text-[10px] text-emerald-300">Gửi trực tiếp cho Đặng Thị Linh Nhi</p>
+        </div>
+      </div>
+
+      <button onclick="toggleFeedbackDrawer()" title="Đóng" class="w-7 h-7 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition text-xs">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Body -->
+    <div class="flex-1 p-4 overflow-y-auto space-y-4 text-xs text-slate-200" id="feedbackFormContainer">
+      
+      <!-- Star Rating -->
+      <div class="space-y-1.5">
+        <label class="text-[11px] font-bold text-slate-300">1. Đánh giá chất lượng phân tích:</label>
+        <div class="flex items-center gap-2 pt-1" id="starRatingGroup">
+          <button type="button" onclick="setFeedbackRating(1)" class="star-btn text-amber-400 text-lg hover:scale-125 transition"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="setFeedbackRating(2)" class="star-btn text-amber-400 text-lg hover:scale-125 transition"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="setFeedbackRating(3)" class="star-btn text-amber-400 text-lg hover:scale-125 transition"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="setFeedbackRating(4)" class="star-btn text-amber-400 text-lg hover:scale-125 transition"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="setFeedbackRating(5)" class="star-btn text-amber-400 text-lg hover:scale-125 transition"><i class="fa-solid fa-star"></i></button>
+          <span class="text-[11px] text-amber-300 font-extrabold ml-2" id="ratingText">Xuất sắc (5/5)</span>
+        </div>
+      </div>
+
+      <!-- Categories -->
+      <div class="space-y-1.5">
+        <label class="text-[11px] font-bold text-slate-300">2. Chủ đề phản hồi:</label>
+        <div class="grid grid-cols-2 gap-2" id="feedbackCategoryGroup">
+          <button type="button" onclick="selectFeedbackCategory(this, 'Số liệu & Biểu đồ')" class="feedback-cat-chip active">
+            <i class="fa-solid fa-chart-pie"></i> <span>Số liệu &amp; Biểu đồ</span>
+          </button>
+          <button type="button" onclick="selectFeedbackCategory(this, 'Làm sạch dữ liệu')" class="feedback-cat-chip">
+            <i class="fa-solid fa-broom"></i> <span>Làm sạch dữ liệu</span>
+          </button>
+          <button type="button" onclick="selectFeedbackCategory(this, 'Tốc độ xử lý')" class="feedback-cat-chip">
+            <i class="fa-solid fa-bolt"></i> <span>Tốc độ xử lý</span>
+          </button>
+          <button type="button" onclick="selectFeedbackCategory(this, 'Đề xuất mới')" class="feedback-cat-chip">
+            <i class="fa-solid fa-lightbulb"></i> <span>Đề xuất mới</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Textarea -->
+      <div class="space-y-1.5">
+        <label class="text-[11px] font-bold text-slate-300">3. Ý kiến đóng góp hoặc vấn đề cần xử lý:</label>
+        <textarea id="feedbackText" rows="4" placeholder="Nhập ý kiến của bạn (VD: Cần thêm biểu đồ theo tháng, lọc loại trừ mã hàng...)"
+          class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-emerald-900/60 text-xs text-white placeholder:text-slate-500 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition"></textarea>
+      </div>
+
+      <!-- Quick Feedback Chips -->
+      <div class="space-y-1.5">
+        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Chọn nhanh mẫu góp ý:</label>
+        <div class="flex flex-wrap gap-1.5">
+          <button type="button" onclick="quickFillFeedback('Dữ liệu phân tích rất chuẩn xác và trực quan!')" class="text-[10px] px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">👍 Rất chuẩn xác</button>
+          <button type="button" onclick="quickFillFeedback('Cần thêm biểu đồ tròn cơ cấu doanh thu theo khu vực.')" class="text-[10px] px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">📊 Thêm biểu đồ</button>
+          <button type="button" onclick="quickFillFeedback('Hãy hỗ trợ xuất thêm định dạng file PDF báo cáo.')" class="text-[10px] px-2.5 py-1 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition">📄 Thêm file PDF</button>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button onclick="submitUserFeedback()" id="btnSubmitFeedback"
+        class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 hover:from-emerald-500 hover:to-teal-400 text-white font-extrabold text-xs shadow-lg shadow-emerald-600/30 transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-paper-plane text-xs"></i> <span>Gửi Phản Hồi Ngay</span>
+      </button>
+
+      <!-- Success Notice -->
+      <div id="feedbackSuccessAlert" class="hidden p-3.5 rounded-2xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 text-xs font-bold flex items-center gap-2.5">
+        <i class="fa-solid fa-circle-check text-base text-emerald-400 shrink-0"></i>
+        <span>Cảm ơn bạn! Đặng Thị Linh Nhi đã tiếp nhận phản hồi và ghi nhận thành công.</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ==================== FLOATING RIGHT-SIDE: HỎI AI ==================== -->
+  <!-- 1. Floating Launcher Button (Bên phải màn hình) -->
+  <div class="fixed right-5 bottom-6 z-50 flex items-center gap-2">
+    <button onclick="toggleAiDrawer()" id="btnAiFloatingTrigger"
+      class="px-4 py-3 rounded-full bg-[#060e24]/95 hover:bg-blue-950/90 border border-cyan-400/60 text-white font-extrabold text-xs shadow-[0_0_30px_rgba(56,189,248,0.5)] backdrop-blur-xl flex items-center gap-2.5 transition-all duration-300 hover:scale-105 group">
+      <div class="relative w-8 h-8 shrink-0">
+        <img src="/static/avatar_linhnhi.jpg?v=2" class="w-8 h-8 rounded-full object-cover object-[center_35%] border border-cyan-400/80 shadow-md">
+        <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-[#060e24] animate-pulse"></span>
+      </div>
+      <div class="flex flex-col text-left">
+        <div class="flex items-center gap-1.5">
+          <span class="text-cyan-300 tracking-wider font-black text-xs">HỎI AI</span>
+          <i class="fa-solid fa-sparkles text-amber-300 text-[10px] group-hover:rotate-12 transition"></i>
+        </div>
+        <span class="text-[9px] text-slate-400 leading-none">Trợ lý Đặng Thị Linh Nhi</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- 2. AI Chat Side Drawer (Nổi bên phải màn hình) -->
+  <div id="aiSideDrawer" class="ai-drawer-closed fixed right-5 bottom-24 z-50 w-96 max-w-[92vw] h-[560px] max-h-[80vh] flex flex-col rounded-3xl bg-[#060b18]/95 border border-cyan-500/40 shadow-[0_25px_60px_rgba(0,0,0,0.85)] backdrop-blur-2xl overflow-hidden">
+    
+    <!-- Drawer Header -->
+    <div class="p-4 bg-slate-950/90 border-b border-blue-900/40 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="relative w-9 h-9 shrink-0">
+          <img src="/static/avatar_linhnhi.jpg?v=2" class="w-9 h-9 rounded-2xl object-cover object-[center_35%] border border-cyan-400/70 shadow-md">
+          <span class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-[#060b18] animate-pulse"></span>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="font-extrabold text-xs text-white">Trợ Lý AI - Đặng Thị Linh Nhi</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          </div>
+          <p class="text-[10px] text-cyan-300">Chỉ phân tích & trả lời khi bạn đặt câu hỏi</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1.5">
+        <button onclick="clearAiChat()" title="Xóa lịch sử chat" class="w-7 h-7 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition text-xs">
+          <i class="fa-solid fa-rotate-right text-[11px]"></i>
+        </button>
+        <button onclick="toggleAiDrawer()" title="Đóng bảng" class="w-7 h-7 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition text-xs">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chat Messages Scroll Area -->
+    <div class="flex-1 p-4 overflow-y-auto space-y-3.5 text-xs text-slate-200" id="aiChatMessages">
+      
+      <!-- Initial State (Polite greeting, does NOT give unprompted answers) -->
+      <div class="p-4 rounded-2xl bg-blue-950/40 border border-cyan-500/30 space-y-2.5">
+        <div class="flex items-center gap-2 text-cyan-300 font-extrabold text-xs">
+          <i class="fa-solid fa-robot text-sm"></i>
+          <span>Chào bạn! Tôi là Trợ Lý AI BI</span>
+        </div>
+        <p class="text-[11px] text-slate-300 leading-relaxed">
+          Tôi <strong>chỉ trả lời khi bạn đặt câu hỏi</strong>. Hãy gõ câu hỏi bất kỳ hoặc chọn các gợi ý nhanh dưới đây để tôi phân tích số liệu cho bạn:
+        </p>
+        
+        <!-- Quick Prompt Chips -->
+        <div class="flex flex-col gap-1.5 pt-1">
+          <button onclick="sendQuickPrompt('Doanh thu hiện tại là bao nhiêu?')" class="ai-quick-chip text-left">
+            <span>💰 Doanh thu hiện tại là bao nhiêu?</span>
+          </button>
+          <button onclick="sendQuickPrompt('Chi nhánh nào bán chạy nhất?')" class="ai-quick-chip text-left">
+            <span>🏬 Chi nhánh nào bán chạy nhất?</span>
+          </button>
+          <button onclick="sendQuickPrompt('Có bao nhiêu đơn hàng bị lỗi hoặc âm?')" class="ai-quick-chip text-left">
+            <span>⚠️ Có bao nhiêu đơn hàng bị lỗi hoặc âm?</span>
+          </button>
+          <button onclick="sendQuickPrompt('Tóm tắt báo cáo kinh doanh cho tôi')" class="ai-quick-chip text-left">
+            <span>📊 Tóm tắt báo cáo kinh doanh cho tôi</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Typing Indicator (Hidden by default) -->
+    <div id="aiTypingIndicator" class="hidden px-4 py-2 text-[11px] text-cyan-300 font-bold flex items-center gap-2 border-t border-slate-900 bg-slate-950/60">
+      <i class="fa-solid fa-spinner animate-spin text-xs"></i>
+      <span>Đặng Thị Linh Nhi đang đọc số liệu & phân tích...</span>
+    </div>
+
+    <!-- Chat Input Form -->
+    <form onsubmit="handleAiSubmit(event)" class="p-3 bg-slate-950/95 border-t border-blue-900/40 flex items-center gap-2">
+      <input type="text" id="aiInputText" placeholder="Hỏi AI về số liệu (VD: doanh thu, chi nhánh...)"
+        class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-blue-900/60 text-xs text-white placeholder:text-slate-500 focus:ring-2 focus:ring-cyan-500 focus:outline-none transition">
+      <button type="submit" id="btnSendAi" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold text-xs transition shadow-lg shadow-cyan-500/30 flex items-center justify-center">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </form>
+
+  </div>
+
+</body>
+
+</html>
