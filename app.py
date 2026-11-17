@@ -12,7 +12,7 @@ import openpyxl
 
 app = FastAPI(title="Vchart Service Agent - AI BI Engine", version="3.0.0")
 
-UPLOAD_DIR = os.path.abspath("uploads")
+UPLOAD_DIR = "/tmp/uploads" if os.getenv("VERCEL") else os.path.abspath("uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 DEFAULT_API_KEY = "AQ.Ab8RN6LBvbZS8wkoD8HQRPZ7PBpd-NQK4QvXr1wSjfuJoTTuhg"
